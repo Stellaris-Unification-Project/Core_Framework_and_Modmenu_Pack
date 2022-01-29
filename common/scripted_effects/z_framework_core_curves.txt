@@ -1,0 +1,362 @@
+###_z modmenu-framework-核心功能 曲线近似	###############################################################
+#_global_tgt	[z_fw_tgt_global_event]全局事件NPC0
+
+#_[FW通用曲线]
+
+
+
+
+###_[FW通用曲线]	|mult=0.91/cal=0.1|	---参考曲线表	###########################################################
+#_prmt	|RATIO/IMPUT/OUTPUT|
+FW_prmt_eft_all_curves_091_010 = {
+	## IMPUT_DB
+	subtract_variable = { which = $IMPUT$ value = 1 }	# 输入_加数化
+	divide_variable = { which = $IMPUT$ value = $RATIO$ }	# 输入/比率
+
+	## 近似选择
+	if = { limit = { check_variable = { which = $IMPUT$ value >= 2.438 } }
+		
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 3.995 } }
+			set_variable = { which = $OUTPUT$ value = 0.99 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 3.644 } }
+			set_variable = { which = $OUTPUT$ value = 0.98 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 3.376 } }
+			set_variable = { which = $OUTPUT$ value = 0.97 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 3.159 } }
+			set_variable = { which = $OUTPUT$ value = 0.96 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 2.977 } }
+			set_variable = { which = $OUTPUT$ value = 0.95 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 2.824 } }
+			set_variable = { which = $OUTPUT$ value = 0.94 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 2.683 } }
+			set_variable = { which = $OUTPUT$ value = 0.93 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 2.554 } }
+			set_variable = { which = $OUTPUT$ value = 0.92 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.91 }
+		}
+	}
+	
+	else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.760 } }
+	
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 2.333 } }
+			set_variable = { which = $OUTPUT$ value = 0.90 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 2.237 } }
+			set_variable = { which = $OUTPUT$ value = 0.89 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 2.149 } }
+			set_variable = { which = $OUTPUT$ value = 0.88 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 2.072 } }
+			set_variable = { which = $OUTPUT$ value = 0.87 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 2.0 } }
+			set_variable = { which = $OUTPUT$ value = 0.86 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.934 } }
+			set_variable = { which = $OUTPUT$ value = 0.85 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.875 } }
+			set_variable = { which = $OUTPUT$ value = 0.84 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.815 } }
+			set_variable = { which = $OUTPUT$ value = 0.83 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.82 }
+		}
+	}
+	
+	else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.355 } }
+	
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 1.705 } }
+			set_variable = { which = $OUTPUT$ value = 0.81 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.656 } }
+			set_variable = { which = $OUTPUT$ value = 0.80 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.616 } }
+			set_variable = { which = $OUTPUT$ value = 0.79 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.561 } }
+			set_variable = { which = $OUTPUT$ value = 0.78 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.515 } }
+			set_variable = { which = $OUTPUT$ value = 0.77 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.474 } }
+			set_variable = { which = $OUTPUT$ value = 0.76 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.433 } }
+			set_variable = { which = $OUTPUT$ value = 0.75 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.392 } }
+			set_variable = { which = $OUTPUT$ value = 0.74 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.73 }
+		}
+	}
+	
+	else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.057 } }
+	
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 1.317 } }
+			set_variable = { which = $OUTPUT$ value = 0.72 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.28 } }
+			set_variable = { which = $OUTPUT$ value = 0.71 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.246 } }
+			set_variable = { which = $OUTPUT$ value = 0.70 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.212 } }
+			set_variable = { which = $OUTPUT$ value = 0.69 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.178 } }
+			set_variable = { which = $OUTPUT$ value = 0.68 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.147 } }
+			set_variable = { which = $OUTPUT$ value = 0.67 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.116 } }
+			set_variable = { which = $OUTPUT$ value = 0.66 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.085 } }
+			set_variable = { which = $OUTPUT$ value = 0.65 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.64 }
+		}
+	}
+	
+	else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.831 } }
+		
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 1.028 } }
+			set_variable = { which = $OUTPUT$ value = 0.63 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 1.0 } }
+			set_variable = { which = $OUTPUT$ value = 0.62 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.978 } }
+			set_variable = { which = $OUTPUT$ value = 0.61 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.952 } }
+			set_variable = { which = $OUTPUT$ value = 0.60 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.927 } }
+			set_variable = { which = $OUTPUT$ value = 0.59 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.901 } }
+			set_variable = { which = $OUTPUT$ value = 0.58 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.878 } }
+			set_variable = { which = $OUTPUT$ value = 0.57 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.855 } }
+			set_variable = { which = $OUTPUT$ value = 0.56 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.55 }
+		}
+	}
+
+	else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.644 } }
+	
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 0.808 } }
+			set_variable = { which = $OUTPUT$ value = 0.54 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.787 } }
+			set_variable = { which = $OUTPUT$ value = 0.53 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.766 } }
+			set_variable = { which = $OUTPUT$ value = 0.52 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.745 } }
+			set_variable = { which = $OUTPUT$ value = 0.51 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.723 } }
+			set_variable = { which = $OUTPUT$ value = 0.50 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.702 } }
+			set_variable = { which = $OUTPUT$ value = 0.49 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.683 } }
+			set_variable = { which = $OUTPUT$ value = 0.48 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.663 } }
+			set_variable = { which = $OUTPUT$ value = 0.47 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.46 }
+		}
+	}
+
+	else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.483 } }
+	
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 0.624 } }
+			set_variable = { which = $OUTPUT$ value = 0.45 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.605 } }
+			set_variable = { which = $OUTPUT$ value = 0.44 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.587 } }
+			set_variable = { which = $OUTPUT$ value = 0.43 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.569 } }
+			set_variable = { which = $OUTPUT$ value = 0.42 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.552 } }
+			set_variable = { which = $OUTPUT$ value = 0.41 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.534 } }
+			set_variable = { which = $OUTPUT$ value = 0.40 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.517 } }
+			set_variable = { which = $OUTPUT$ value = 0.39 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.499 } }
+			set_variable = { which = $OUTPUT$ value = 0.38 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.37 }
+		}
+	}
+
+	else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.345 } }
+	
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 0.467 } }
+			set_variable = { which = $OUTPUT$ value = 0.36 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.451 } }
+			set_variable = { which = $OUTPUT$ value = 0.35 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.435 } }
+			set_variable = { which = $OUTPUT$ value = 0.34 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.419 } }
+			set_variable = { which = $OUTPUT$ value = 0.33 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.403 } }
+			set_variable = { which = $OUTPUT$ value = 0.32 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.388 } }
+			set_variable = { which = $OUTPUT$ value = 0.31 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.373 } }
+			set_variable = { which = $OUTPUT$ value = 0.30 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.359 } }
+			set_variable = { which = $OUTPUT$ value = 0.29 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.28 }
+		}
+	}
+
+	else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.222 } }
+	
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 0.33 } }
+			set_variable = { which = $OUTPUT$ value = 0.27 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.316 } }
+			set_variable = { which = $OUTPUT$ value = 0.26 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.301 } }
+			set_variable = { which = $OUTPUT$ value = 0.25 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.288 } }
+			set_variable = { which = $OUTPUT$ value = 0.24 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.275 } }
+			set_variable = { which = $OUTPUT$ value = 0.23 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.261 } }
+			set_variable = { which = $OUTPUT$ value = 0.22 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.248 } }
+			set_variable = { which = $OUTPUT$ value = 0.21 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.235 } }
+			set_variable = { which = $OUTPUT$ value = 0.20 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.19 }
+		}
+	}
+	
+	else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.111 } }
+	
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 0.208 } }
+			set_variable = { which = $OUTPUT$ value = 0.18 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.195 } }
+			set_variable = { which = $OUTPUT$ value = 0.17 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.183 } }
+			set_variable = { which = $OUTPUT$ value = 0.16 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.171 } }
+			set_variable = { which = $OUTPUT$ value = 0.15 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.159 } }
+			set_variable = { which = $OUTPUT$ value = 0.14 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.147 } }
+			set_variable = { which = $OUTPUT$ value = 0.13 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.135 } }
+			set_variable = { which = $OUTPUT$ value = 0.12 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.123 } }
+			set_variable = { which = $OUTPUT$ value = 0.11 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.10 }
+		}
+	}
+	
+	else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.011 } }
+	
+		if = { limit = { check_variable = { which = $IMPUT$ value >= 0.099 } }
+			set_variable = { which = $OUTPUT$ value = 0.09 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.088 } }
+			set_variable = { which = $OUTPUT$ value = 0.08 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.077 } }
+			set_variable = { which = $OUTPUT$ value = 0.07 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.066 } }
+			set_variable = { which = $OUTPUT$ value = 0.06 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.055 } }
+			set_variable = { which = $OUTPUT$ value = 0.05 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.044 } }
+			set_variable = { which = $OUTPUT$ value = 0.04 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.033 } }
+			set_variable = { which = $OUTPUT$ value = 0.03 }
+		}
+		else_if = { limit = { check_variable = { which = $IMPUT$ value >= 0.022 } }
+			set_variable = { which = $OUTPUT$ value = 0.02 }
+		}
+		else = {
+			set_variable = { which = $OUTPUT$ value = 0.01 }
+		}
+	}
+		
+	## OUTPUT_DB
+	multiply_variable = { which = $OUTPUT$ value = $RATIO$ }	# 输出*比率
+	change_variable = { which = $OUTPUT$ value = 1 }	# 输出_乘数化
+	
+}

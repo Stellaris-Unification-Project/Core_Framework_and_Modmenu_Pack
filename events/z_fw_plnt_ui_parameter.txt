@@ -1,0 +1,236 @@
+namespace = z_fw_plnt_ui_setting
+#_[星球参数UI]	碧蓝航线DLC/舰R/星舰少女/灰烬/涅托/约战/苍蓝		/ACOT/GIGA
+
+
+
+
+###_[星球参数UI]	伞の优化/产业革命
+planet_event = {
+	id = z_fw_plnt_ui_setting.2
+	title = z_fw_plnt_ui_setting.check.name
+	desc = z_fw_plnt_ui_setting.check.desc
+	picture = GFX_evt_z_fw_relic_war
+	is_triggered_only = yes
+	location = this
+	force_open = yes
+	
+	diplomatic = yes
+	custom_gui = "z_fw_gui_plnt_ui_check"
+	
+	after = {
+		hidden_effect = { remove_planet_flag = z_fw_plnt_ui_setting_open }	#_|UIdebug|
+	}
+	#_[关闭]
+	option = {
+		name = z_fw_tips_empty
+		custom_gui = "z_mm_button_evt_option_desc"
+		hidden_effect = {
+			remove_planet_flag = z_fw_plnt_ui_setting_open	#_|UIdebug|
+		}
+	}
+	
+	
+	#_[伞の优化]
+	option = {
+		name = z_performance2_var
+		custom_gui = "z_mm_button_evt_option_name"
+		hidden_effect = {
+		}
+	}
+	option = {#_国家人口上限
+		name = z_pf2_var_cntr_pop_cap_final
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { owner = { is_variable_set = z_pf2_var_cntr_pop_cap_final } }
+		hidden_effect = {}
+	}
+	option = {#_人口增长效率
+		name = z_pf2_var_cntr_pop_increase_bonus
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { owner = { is_variable_set = z_pf2_var_cntr_pop_increase_bonus } }
+		hidden_effect = {}
+	}
+	option = {#_星球人口增长
+		name = z_pf2_var_plnt_pop_growth
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { is_variable_set = z_pf2_var_plnt_pop_growth }
+		hidden_effect = {}
+	}
+	option = {#_星球人口克隆
+		name = z_pf2_var_plnt_pop_clone
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { is_variable_set = z_pf2_var_plnt_pop_clone }
+		hidden_effect = {}
+	}
+	option = {#_星球人口组装
+		name = z_pf2_var_plnt_pop_assembly
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { is_variable_set = z_pf2_var_plnt_pop_assembly }
+		hidden_effect = {}
+	}
+
+
+
+
+
+
+	###_[产业革命]	#################################
+	##_[空格]
+	option = {#_开启
+		name = z_fw_tips_empty
+		custom_gui = "z_mm_button_evt_option_empty"
+		hidden_effect = {}
+	}
+
+	##_[信息]	标题/指南/人力/人力增长
+	option = {#_[标题]
+		name = z_pr_var
+		custom_gui = "z_mm_button_evt_option_name"
+		trigger = { has_global_flag = z_pr_installed }
+		hidden_effect = {}
+	}
+
+
+	option = {#_[指南]
+		name = z_pr_tips_var_plnt_guide
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed }
+		hidden_effect = {}
+	}
+	option = {#_[人力]
+		name = z_pr_tips_var_plnt_pop_man
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed		is_variable_set = PR_var_plnt_MAN }
+		hidden_effect = {}
+	}
+	option = {
+		name = z_pr_tips_var_cntr_man
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed		is_variable_set = PR_var_plnt_ULTILIZATION }
+		hidden_effect = {}
+	}
+	option = {
+		name = z_pr_tips_var_plnt_man
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed		is_variable_set = PR_var_plnt_ULTILIZATION }
+		hidden_effect = {}
+	}
+	option = {
+		name = z_pr_tips_var_plnt_man_desc
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed		is_variable_set = TEMP_var_EFFICIENCY }
+		hidden_effect = {}
+	}
+	option = {
+		name = z_pr_tips_var_EFFICIENCY
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed		is_variable_set = TEMP_var_EFFICIENCY }
+		hidden_effect = {}
+	}
+	option = {
+		name = z_pr_tips_var_EFFICIENCY_desc
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed		is_variable_set = PR_var_plnt_MAN }
+		hidden_effect = {}
+	}
+	option = {#_[人力增长]
+		name = z_pr_tips_var_plnt_man_cap
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed		is_variable_set = PR_var_plnt_MAN		is_variable_set = OTDT_var }
+		hidden_effect = {}
+	}
+	option = {
+		name = z_pr_tips_var_plnt_man_cap_desc
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed		is_variable_set = PR_var_plnt_MAN		is_variable_set = OTDT_var }
+		hidden_effect = {}
+	}
+	option = {
+		name = z_pr_tips_var_plnt_man_growth
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed		is_variable_set = PR_var_plnt_MAN		is_variable_set = OTDT_var		is_variable_set = z_pr_var_plnt_man_growth }
+		hidden_effect = {}
+	}
+	option = {
+		name = z_pr_tips_var_plnt_man_growth_desc
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed		is_variable_set = PR_var_plnt_MAN		is_variable_set = OTDT_var		is_variable_set = z_pr_var_plnt_man_growth }
+		hidden_effect = {}
+	}
+
+
+	##_[产出]
+	option = {#_[空格]
+		name = z_fw_tips_empty
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed }
+		hidden_effect = {}
+	}
+	option = {#_[简介]
+		name = z_pr_tips_plnt_man_economy
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed }
+		hidden_effect = {}
+	}
+
+	option = {#_[贸易]
+		name = z_pr_tips_mod_plnt_trade
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed OR = { is_variable_set = z_pr_var_job_trade_value_add	is_variable_set = z_pr_var_man_trade_value_add } }
+		hidden_effect = {}
+	}
+	option = {#_[舒适]
+		name = z_pr_tips_mod_plnt_amenities
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed	exists = owner owner = { is_gestalt = no } }
+		hidden_effect = {}
+	}
+	option = {#_[维护]
+		name = z_pr_tips_mod_plnt_maintain
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed	exists = owner owner = { is_gestalt = yes } }
+		hidden_effect = {}
+	}
+	option = {#_[稳定]
+		name = z_pr_tips_mod_plnt_stability
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed	is_variable_set = z_pr_var_job_planet_stability_add }
+		hidden_effect = {}
+	}
+	option = {#_[犯罪]
+		name = z_pr_tips_mod_plnt_crime
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed	exists = owner owner = { is_gestalt = no } }
+		hidden_effect = {}
+	}
+	option = {#_[异常]
+		name = z_pr_tips_mod_plnt_deviant
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed	exists = owner owner = { is_gestalt = yes } }
+		hidden_effect = {}
+	}
+	option = {#_[宜居度]
+		name = z_pr_tips_mod_plnt_tolerance
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed	is_variable_set = z_pr_var_job_pop_environment_tolerance }
+		hidden_effect = {}
+	}
+	option = {#_[海军规模]
+		name = z_pr_tips_var_plnt_job_cntr_admin_add
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed	is_variable_set = z_pr_var_job_country_naval_cap_add }
+		hidden_effect = {}
+	}
+	option = {#_[管理上限]
+		name = z_pr_tips_var_plnt_job_cntr_navy_add
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed	is_variable_set = z_pr_var_job_country_admin_cap_add }
+		hidden_effect = {}
+	}
+	
+	option = {#_[防卫军]
+		name = z_pr_tips_mod_pop_plnt_pdf
+		custom_gui = "z_mm_button_evt_option_desc"
+		trigger = { has_global_flag = z_pr_installed	is_variable_set = z_pr_var_job_pop_defense_armies_add }
+		hidden_effect = {}
+	}
+}

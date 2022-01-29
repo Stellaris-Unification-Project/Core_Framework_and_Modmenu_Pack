@@ -1,0 +1,380 @@
+###_沉浸战场	###############################################################################
+
+#_[RTS比例建造]
+#_[RTS_年检]
+#_[激活检测rtss]
+#_[清理modifier]
+#_[添加modifier]
+
+
+
+
+###_[RTS比例建造]	<核心月检>	#################################################
+#_prmt	<TECH/SHIP/VALUE>
+RTS_prmt_eft_cntr_fraction_expect_init = {
+	if = { limit = { has_technology = $TECH$ }
+		set_variable = { which = RTS_var_cntr_expect_$SHIP$ value = $VALUE$ }
+	}
+	else_if = { limit = { always = yes }
+		set_variable = { which = RTS_var_cntr_expect_$SHIP$ value = 0 }
+	}
+	change_variable = { which = TEMP_var_expect_all value = RTS_var_cntr_expect_$SHIP$ }
+}
+#_prmt	<SHIP>
+RTS_prmt_eft_cntr_fraction_expect_cal = {
+	divide_variable = { which = RTS_var_cntr_expect_$SHIP$ value = TEMP_var_expect_all }
+	round_variable_to_closest = { which = RTS_var_cntr_expect_$SHIP$ value = 0.01 }	#_近似到0.01(1%),可以使T34这类路线不需要的船永远=0
+}
+#_prmt	<SHIP>
+RTS_prmt_eft_cntr_fraction_init = {
+	remove_country_flag = RTS_flg_cntr_build_focus_$SHIP$
+	set_variable = { which = RTS_var_cntr_fraction_$SHIP$	 value = 0 }
+}
+#_prmt	<SHIP/WEIGHT>
+RTS_prmt_eft_ship_fraction_tally = {
+	if = { limit = { is_ship_size = $SHIP$ }
+		prev = {
+			change_variable = { which = RTS_var_cntr_fraction_$SHIP$ value = $WEIGHT$ }
+			change_variable = { which = RTS_var_cntr_naval_usage value = $WEIGHT$ }
+		}
+	}
+}
+#_prmt	<SHIP>
+RTS_prmt_eft_cntr_fraction_debug = {
+	divide_variable = { which = RTS_var_cntr_fraction_$SHIP$ value = RTS_var_cntr_naval_usage }
+	if = { limit = { check_variable = { which = RTS_var_cntr_fraction_$SHIP$ value < RTS_var_cntr_expect_$SHIP$ } }		set_country_flag = RTS_flg_cntr_build_focus_$SHIP$ }	#_一种船比例只有>|期望|,才不期望建造
+}
+
+###_[RTS舰队比例建造]
+RTS_eft_cntr_fraction_debug = {
+	## 舰队分配
+	if = {#红海军
+		limit = { has_country_flag = RTS_flg_cntr_WS_RN }
+		set_variable = { which = TEMP_var_expect_all value = 0 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_battleships	 SHIP = battleship	 VALUE = 66 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_cruisers		 SHIP = cruiser		 VALUE = 34 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_destroyers	 SHIP = destroyer	 VALUE = 0.01 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_corvettes	 SHIP = corvette	 VALUE = 0.01 }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = battleship }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = cruiser }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = destroyer }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = corvette }
+		clear_variable = TEMP_var_expect_all
+	}
+	else_if = {#旧日/自由
+		limit = { OR = { has_country_flag = RTS_flg_cntr_WS_CV		has_country_flag = RTS_flg_cntr_WS_FE } }
+		set_variable = { which = TEMP_var_expect_all value = 0 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_battleships	 SHIP = battleship	 VALUE = 66 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_cruisers		 SHIP = cruiser		 VALUE = 0.01 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_destroyers	 SHIP = destroyer	 VALUE = 33 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_corvettes	 SHIP = corvette	 VALUE = 0.01 }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = battleship }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = cruiser }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = destroyer }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = corvette }
+		clear_variable = TEMP_var_expect_all
+	}
+	else_if = {#T34
+		limit = { has_country_flag = RTS_flg_cntr_WS_T34 }
+		set_variable = { which = TEMP_var_expect_all value = 0 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_battleships	 SHIP = battleship	 VALUE = 100 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_cruisers		 SHIP = cruiser		 VALUE = 0.01 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_destroyers	 SHIP = destroyer	 VALUE = 0.01 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_corvettes	 SHIP = corvette	 VALUE = 0.01 }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = battleship }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = cruiser }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = destroyer }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = corvette }
+		clear_variable = TEMP_var_expect_all
+	}
+	else_if = {#其他
+		limit = { always = yes }
+		set_variable = { which = TEMP_var_expect_all value = 0 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_battleships	 SHIP = battleship	 VALUE = 37 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_cruisers		 SHIP = cruiser		 VALUE = 36 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_destroyers	 SHIP = destroyer	 VALUE = 18 }
+		RTS_prmt_eft_cntr_fraction_expect_init = { TECH = tech_corvettes	 SHIP = corvette	 VALUE = 9 }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = battleship }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = cruiser }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = destroyer }
+		RTS_prmt_eft_cntr_fraction_expect_cal = { SHIP = corvette }
+		clear_variable = TEMP_var_expect_all
+	}
+
+	## init
+	RTS_prmt_eft_cntr_fraction_init = { SHIP = battleship }
+	RTS_prmt_eft_cntr_fraction_init = { SHIP = cruiser }
+	RTS_prmt_eft_cntr_fraction_init = { SHIP = destroyer }
+	RTS_prmt_eft_cntr_fraction_init = { SHIP = corvette }
+	set_variable = { which = RTS_var_cntr_naval_usage value = 0 }	#_总数
+
+	## tally
+	every_owned_ship = { limit = { is_ship_class = shipclass_military }	#_|仅战舰|
+		RTS_prmt_eft_ship_fraction_tally = { SHIP =	battleship		 WEIGHT = 8 }
+		RTS_prmt_eft_ship_fraction_tally = { SHIP =	cruiser			 WEIGHT = 4 }
+		RTS_prmt_eft_ship_fraction_tally = { SHIP =	destroyer		 WEIGHT = 2 }
+		RTS_prmt_eft_ship_fraction_tally = { SHIP =	corvette		 WEIGHT = 1 }
+	}
+	
+	## 比例debug
+	RTS_prmt_eft_cntr_fraction_debug = { SHIP = battleship }
+	RTS_prmt_eft_cntr_fraction_debug = { SHIP = cruiser }
+	RTS_prmt_eft_cntr_fraction_debug = { SHIP = destroyer }
+	RTS_prmt_eft_cntr_fraction_debug = { SHIP = corvette }
+
+}
+
+
+
+
+###_[RTS_年检]	<初始化_debug>	#################################################
+#_list		造船资源	/战争风格/武器偏好/风格科技
+z_rts_eft_glbl_init_yearly = {
+	every_country = {
+		limit = {
+			is_ai = yes
+			NOT = { has_country_flag = z_fw_flg_cntr_init_pc }
+			OR = {
+				is_country_type = default
+				is_country_type = prikki
+				is_country_type = default_ev					#_EV
+				is_country_type = ascended_empire				#_ZOFE
+				is_country_type = lost_empire
+				is_country_type = original_empire_passive		#_SOFE
+				is_country_type = eternal_empire				#_永恒
+			}
+		}
+		
+		if = { limit = { z_rts_trgr_glbl_warfare = yes }	#_|RTS战争|
+			##_[造船资源]
+			if = {
+				limit = {
+					is_ai = yes
+					NOT = { has_country_flag = z_fw_flg_cntr_init_pc }
+					OR = {#_|普通国家|
+						is_country_type = default
+						is_country_type = prikki
+						is_country_type = default_ev					#_EV
+						is_country_type = ascended_empire				#_ZOFE
+						is_country_type = lost_empire
+					}
+				}
+				if = { limit = { NOT = { has_modifier = RTS_mod_AI_fleet_resources } }	#_[RTS造船资源debug]
+					add_modifier = { modifier = RTS_mod_AI_fleet_resources days = -1 }
+				}
+			}
+			else_if = { limit = { has_modifier = RTS_mod_AI_fleet_resources }
+				remove_modifier = RTS_mod_AI_fleet_resources
+			}
+		}
+		
+		
+		##_[战争风格]
+		if = {
+			limit = {
+				NOR = {
+					has_country_flag = RTS_flg_cntr_WS_CV
+					has_country_flag = RTS_flg_cntr_WS_RN
+					has_country_flag = RTS_flg_cntr_WS_G
+					has_country_flag = RTS_flg_cntr_WS_T34
+					has_country_flag = RTS_flg_cntr_WS_FE
+				#	has_country_flag = RTS_flg_cntr_WS_LS
+				}
+			}
+			random_list = {
+				1 = { set_country_flag = RTS_flg_cntr_WS_CV }
+				1 = { set_country_flag = RTS_flg_cntr_WS_RN }
+				1 = { set_country_flag = RTS_flg_cntr_WS_G }
+				1 = { set_country_flag = RTS_flg_cntr_WS_T34 }
+				1 = { set_country_flag = RTS_flg_cntr_WS_FE }
+			#	1 = { set_country_flag = RTS_flg_cntr_WS_LS }
+			}
+		}
+		
+		##_[武器偏好]	红海军/机动舰队/其他
+		# 红海军
+		if = {
+			limit = {
+				has_country_flag = RTS_flg_cntr_WS_RN
+				NOT = { has_country_flag = RTS_wepon_type_missile }
+			}
+			set_country_flag = RTS_wepon_type_missile
+		}
+		# 机动舰队
+		else_if = {
+			limit = {
+				has_country_flag = RTS_flg_cntr_WS_CV
+				NOT = { has_country_flag = RTS_wepon_type_strike_craft }
+			}
+			set_country_flag = RTS_wepon_type_strike_craft
+		}
+		# 其他
+		else_if = {
+			limit = {
+				NOR = {
+					has_country_flag = RTS_wepon_type_energy
+					has_country_flag = RTS_wepon_type_kinetic
+					has_country_flag = RTS_wepon_type_piercing
+				}
+			}
+			random_list = {
+				1 = { set_country_flag = RTS_wepon_type_energy }
+				1 = { set_country_flag = RTS_wepon_type_kinetic }
+				1 = { set_country_flag = RTS_wepon_type_piercing }
+			}
+		}
+		
+		##_[风格科技]
+		if = {#红海军
+			limit = {
+				has_country_flag = RTS_flg_cntr_WS_RN
+				NOT = { has_technology = RTS_tech_core_WS_RN }
+			}
+			give_technology = { tech = RTS_tech_core_WS_RN message = no }
+		}
+		else_if = {#航母
+			limit = {
+				has_country_flag = RTS_flg_cntr_WS_CV
+				NOT = { has_technology = RTS_tech_core_WS_CV }
+			}
+			give_technology = { tech = RTS_tech_core_WS_CV message = no }
+		}
+		else_if = {#帝国
+			limit = {
+				has_country_flag = RTS_flg_cntr_WS_G
+				has_technology = tech_cruisers	#巡洋舰解锁
+				NOT = { has_technology = RTS_tech_core_WS_G }
+			}
+			give_technology = { tech = RTS_tech_core_WS_G message = no }
+		}
+		else_if = {#T34
+			limit = {
+				has_country_flag = RTS_flg_cntr_WS_T34
+				has_technology = tech_cruisers	#巡洋舰解锁
+				NOT = { has_technology = RTS_tech_core_WS_T34 }
+			}
+			give_technology = { tech = RTS_tech_core_WS_T34 message = no }
+		}
+		else_if = {#旧日
+			limit = {
+				has_country_flag = RTS_flg_cntr_WS_FE
+				has_technology = tech_cruisers	#巡洋舰解锁
+				NOT = { has_technology = RTS_tech_core_WS_FE }
+			}
+			give_technology = { tech = RTS_tech_core_WS_FE message = no }
+		}
+	#	else_if = {#末日
+	#		limit = {
+	#			has_country_flag = RTS_flg_cntr_WS_LS
+	#			NOT = { has_technology = RTS_tech_core_WS_LS }
+	#		}
+	#		give_technology = { tech = RTS_tech_core_WS_LS message = no }
+	#	}
+	}
+}
+
+
+
+
+###_[激活检测rtss]	#################################################
+z_rtss_eft_npc0_activated_check = {
+	#决战兵器体系
+	if = { limit = { has_global_flag = z_rtsb_installed }
+		set_variable = { which = z_fw_var_set_vl_range_mult value = @z_fw_sv_vl_range_rtsb }
+		set_variable = { which = z_fw_var_set_vl_speed_mult value = @z_fw_sv_vl_speed_rtsb }
+		if = {#_调整vl设置
+			limit = { z_fw_trgr_glbl_battle_vl_more = no }
+			remove_global_flag = z_fw_flg_glbl_battle_vl_0
+			set_global_flag = z_fw_flg_glbl_battle_vl_1
+		}
+	}
+	#vanilla
+	else_if = { limit = { always = yes }
+		set_variable = { which = z_fw_var_set_vl_range_mult value = @z_fw_sv_vl_range_v }
+		set_variable = { which = z_fw_var_set_vl_speed_mult value = @z_fw_sv_vl_speed_v }
+	}
+}
+
+
+
+
+###_[清理modifier]	#################################################
+z_rts_eft_flt_battle_buff_clean = {
+	#_[战术机动]
+	remove_modifier = z_rts_mod_ship_battle_maneuver_1
+	remove_modifier = z_rts_mod_ship_battle_maneuver_2
+	remove_modifier = z_rts_mod_ship_battle_maneuver_3
+}
+
+
+###_[添加modifier]	#################################################
+#_[RS]兼容+特殊星系兼容
+z_rts_eft_cntr_battle_buff_add = {
+	if = {
+		limit = { has_global_flag = has_system_scale_mod }	#_[rtss]
+		fromfrom = {
+			#_system<speed-0.7>
+			if = {
+				limit = { solar_system = { is_star_class = sc_magnetar } }	#_RS
+				#_无[system_modifier]
+				if = {
+					limit = {
+						solar_system = {
+							NOR = {
+								has_modifier = space_storm
+								has_modifier = vluur_storm
+								has_modifier = turbulent_nebula
+							}
+						}
+					}
+					add_modifier = { modifier = z_rts_mod_ship_battle_maneuver_3 days = -1 }
+				}
+			}
+			#_system<speed-0.5>
+			else_if = {
+				limit = {
+					solar_system = {
+						OR = {
+							is_star_class = sc_neutron_star
+							is_star_class = sc_binary_2
+						}
+					}
+				}
+				#_无[system_modifier]
+				if = {
+					limit = {
+						solar_system = {
+							NOR = {
+								has_modifier = space_storm
+								has_modifier = vluur_storm
+								has_modifier = turbulent_nebula
+							}
+						}
+					}
+					add_modifier = { modifier = z_rts_mod_ship_battle_maneuver_2 days = -1 }
+				}
+			}
+			#_system<normal>
+			else = {
+				#_[system_modifier<speed-0.5>]
+				if = {
+					limit = {
+						solar_system = {
+							OR = {
+								has_modifier = space_storm
+								has_modifier = vluur_storm
+								has_modifier = turbulent_nebula
+							}
+						}
+					}
+					add_modifier = { modifier = z_rts_mod_ship_battle_maneuver_2 days = -1 }
+				}
+				#_无[system_modifier]
+				else = {
+					add_modifier = { modifier = z_rts_mod_ship_battle_maneuver_1 days = -1 }
+				}
+			}
+		}
+	}
+}
+

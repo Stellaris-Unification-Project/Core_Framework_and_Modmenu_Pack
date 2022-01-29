@@ -1,0 +1,152 @@
+###_z modmenu	###########################################################################################
+
+#_[Ñ¹Á¦²âÊÔ]
+
+
+
+
+###_[Ñ¹Á¦²âÊÔ]	TEST
+z_fw_var_cntr_pressure = {
+	potential = {
+		is_scope_type = country
+		is_ai = no
+		OR = {
+			has_global_flag = TEST_flg_pressure_trgr_1
+			AND = {
+				has_global_flag = TEST_flg_pressure_trgr
+				OR = {
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = planet_housing_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = planet_amenities_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = planet_max_buildings_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_colonist_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_roboticist_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_enforcer_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = planet_max_branch_office_buildings_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_administrator_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_executive_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_high_priest_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_noble_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_high_priest_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_head_researcher_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_merchant_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = planet_jobs_upkeep_mult value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = planet_jobs_produces_mult value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_bureaucrat_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_executive_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_replicator_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_necro_apprentice_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = planet_pop_assembly_organic_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_coordinator_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_agri_drone_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_fe_acolyte_farm_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_mining_drone_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_technician_drone_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_catalytic_drone_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_calculator_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_brain_drone_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_researcher_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_clerk_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = trade_value_mult value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_entertainer_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_spawning_drone_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_slave_overseer_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_culture_worker_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = pop_ethic_spiritualist_attraction_mult value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_death_chronicler_add value >= 1153 } } }
+					event_target:z_fw_tgt_global_event = { any_galaxy_planet = { check_modifier_value = { modifier = job_chronicle_drone_add value >= 1153 } } }
+					any_galaxy_planet = { is_planet_class = pc_habitat }
+					any_galaxy_planet = { is_planet_class = pc_ringworld_habitable }
+					any_galaxy_planet = { is_planet_class = pc_relic }
+					any_galaxy_planet = { is_planet_class = pc_milarc_relic }
+					any_galaxy_planet = { is_planet_class = pc_pd_barren_hab }
+					any_galaxy_planet = { is_planet_class = pc_pd_barren_cold_hab }
+					any_galaxy_planet = { is_planet_class = pc_pd_frozen_hab }
+					any_galaxy_planet = { is_planet_class = pc_pd_molten_hab }
+					any_galaxy_planet = { is_planet_class = pc_pd_hothouse_hab }
+					any_galaxy_planet = { is_planet_class = pc_pd_toxic_hab }
+					any_galaxy_planet = { is_planet_class = pc_pd_gas_giant_hab }
+					any_galaxy_planet = { is_planet_class = pc_pd_asteroid_hab }
+					any_galaxy_planet = { is_planet_class = pc_ecocity }
+					any_galaxy_planet = { is_planet_class = pc_palacearc }
+					any_galaxy_planet = { is_planet_class = pc_capitalarc }
+					any_galaxy_planet = { is_planet_class = pc_necropolis }
+					any_galaxy_planet = { is_planet_class = pc_machine_necropolis }
+					any_galaxy_planet = { is_planet_class = pc_necrohive }
+					any_galaxy_planet = { is_planet_class = pc_milarc }
+					any_galaxy_planet = { is_planet_class = pc_city }
+					any_galaxy_planet = { is_planet_class = pc_desert }
+					any_galaxy_planet = { is_planet_class = pc_tropical }
+					any_galaxy_planet = { is_planet_class = pc_arid }
+					any_galaxy_planet = { is_planet_class = pc_ocean }
+					any_galaxy_planet = { is_planet_class = pc_tundra }
+					any_galaxy_planet = { is_planet_class = pc_arctic }
+					any_galaxy_planet = { is_planet_class = pc_continental }
+					any_galaxy_planet = { is_planet_class = pc_alpine }
+					any_galaxy_planet = { is_planet_class = pc_savannah }
+					any_galaxy_planet = { is_planet_class = pc_sandsea }
+					any_galaxy_planet = { is_planet_class = pc_oasis }
+					any_galaxy_planet = { is_planet_class = pc_mesa }
+					any_galaxy_planet = { is_planet_class = pc_outback }
+					any_galaxy_planet = { is_planet_class = pc_med }
+					any_galaxy_planet = { is_planet_class = pc_mangrove }
+					any_galaxy_planet = { is_planet_class = pc_wetswamp }
+					any_galaxy_planet = { is_planet_class = pc_desertislands }
+					any_galaxy_planet = { is_planet_class = pc_hajungle }
+					any_galaxy_planet = { is_planet_class = pc_forest }
+					any_galaxy_planet = { is_planet_class = pc_lake }
+					any_galaxy_planet = { is_planet_class = pc_tepid }
+					any_galaxy_planet = { is_planet_class = pc_steppe }
+					any_galaxy_planet = { is_planet_class = pc_prairie }
+					any_galaxy_planet = { is_planet_class = pc_veld }
+					any_galaxy_planet = { is_planet_class = pc_semiarid }
+					any_galaxy_planet = { is_planet_class = pc_retinal }
+					any_galaxy_planet = { is_planet_class = pc_cascadian }
+					any_galaxy_planet = { is_planet_class = pc_hadesert }
+					any_galaxy_planet = { is_planet_class = pc_snow }
+					any_galaxy_planet = { is_planet_class = pc_highland }
+					any_galaxy_planet = { is_planet_class = pc_duneforest }
+					any_galaxy_planet = { is_planet_class = pc_mushroom }
+					any_galaxy_planet = { is_planet_class = pc_swamp }
+					any_galaxy_planet = { is_planet_class = pc_mud }
+					any_galaxy_planet = { is_planet_class = pc_subarctic }
+					any_galaxy_planet = { is_planet_class = pc_antarctic }
+					any_galaxy_planet = { is_planet_class = pc_aeolian }
+					any_galaxy_planet = { is_planet_class = pc_frozen_desert }
+					any_galaxy_planet = { is_planet_class = pc_boreal }
+					any_galaxy_planet = { is_planet_class = pc_glacial }
+					any_galaxy_planet = { is_planet_class = pc_geothermal }
+					any_galaxy_planet = { is_planet_class = pc_karst }
+					any_galaxy_planet = { is_planet_class = pc_primal }
+					any_galaxy_planet = { is_planet_class = pc_salt }
+					any_galaxy_planet = { is_planet_class = pc_aquifer }
+					any_galaxy_planet = { is_planet_class = pc_coral }
+					any_galaxy_planet = { is_planet_class = pc_storm }
+					any_galaxy_planet = { is_planet_class = pc_rogue }
+					any_galaxy_planet = { is_planet_class = pc_lichen }
+					any_galaxy_planet = { is_planet_class = pc_eyeball }
+					any_galaxy_planet = { is_planet_class = pc_glacio }
+					any_galaxy_planet = { is_planet_class = pc_lanthanide }
+					any_galaxy_planet = { is_planet_class = pc_megaflora }
+					any_galaxy_planet = { is_planet_class = pc_megaflorahive }
+					any_galaxy_planet = { is_planet_class = pc_megafloratol }
+					any_galaxy_planet = { is_planet_class = pc_aquatic }
+					any_galaxy_planet = { is_planet_class = pc_biolumen }
+					any_galaxy_planet = { is_planet_class = pc_superhabitable }
+					any_galaxy_planet = { is_planet_class = pc_tidallylocked }
+					any_galaxy_planet = { is_planet_class = pc_supercon }
+					any_galaxy_planet = { is_planet_class = pc_irradiated }
+					any_galaxy_planet = { is_planet_class = pc_methane }
+					any_galaxy_planet = { is_planet_class = pc_ash }
+					any_galaxy_planet = { is_planet_class = pc_nuked }
+					any_galaxy_planet = { is_planet_class = pc_pdshroud }
+					any_galaxy_planet = { is_planet_class = pc_gaia }
+					any_galaxy_planet = { is_planet_class = pc_floating }
+					any_galaxy_planet = { is_planet_class = pc_crystal }
+					any_galaxy_planet = { is_planet_class = pc_graveyard }
+					any_galaxy_planet = { is_planet_class = pc_technoorganic }
+				}
+			}
+		}
+	}
+	allow = { always = yes }
+}

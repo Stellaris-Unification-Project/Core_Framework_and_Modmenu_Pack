@@ -1,0 +1,16 @@
+###_测试用eft	#########################################################
+
+#_[else_if测试]
+
+
+
+
+#_[else_if测试]
+#_prmt		|VALUE|
+TEST_prmt_eft_npc0_else_if = {
+	if = { limit = { always = yes }	#_|防止报错|
+	}
+	else_if = { limit = { check_variable = { which = TEST_var_cpu_pressure value = $VALUE$ } }
+		change_variable = { which = TEST_var_cpu_pressure value = 1 }
+	}
+}

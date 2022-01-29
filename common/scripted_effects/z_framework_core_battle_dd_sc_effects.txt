@@ -1,0 +1,394 @@
+#_[DDSC设置]
+#_[DDSC_PC最高mod导出/DDSC_数据统计
+#_[DDSC_MOD期望计算]
+#_[DDSC_国家mod_debug/DDSC_国家mod_延时DB]
+#_[DDSC_AI_mod清理/DDSC_AI_mod刷新/DDSC_AI_mod延时刷新]
+
+
+
+
+###_[DDSC设置]	########################################################################
+#_prmt	<CAT/VALUE>
+#_CAT	mult_glbl/weight_fallen/weight_threat/weight_crisis/weight_monster/weight_lev
+DDSC_prmt_eft_npc0_setting_parameter = {
+	change_variable= { which = DDSC_var_set_$CAT$ value = $VALUE$ }
+	# 最值限定
+	if = { limit = { check_variable = { which = DDSC_var_set_$CAT$_perc value < 0 } }
+		set_variable= { which = DDSC_var_set_$CAT$ value = 0 }
+	}
+	# 百分比显示
+	if = { limit = { is_variable_set = DDSC_var_set_$CAT$_perc }
+		set_variable = { which = DDSC_var_set_$CAT$_perc value = DDSC_var_set_$CAT$ }
+		multiply_variable = { which = DDSC_var_set_$CAT$_perc value = 100 }
+	}
+}
+
+
+
+
+###_[DDSC_PC最高mod导出]	########################################################################
+#_var	|DDSC_var_npc0_$MOD$_MAX_MOD_PC|
+#_prmt	<MOD>
+z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = {
+	set_variable= { which = DDSC_var_npc0_$MOD$_MAX_MOD_PC value = 0 }
+}
+
+#_var	|DDSC_var_npc0_$MOD$_MAX_MOD_PC|
+#_prmt	<MOD>
+z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = {
+
+	# init=导出对应mod为var
+	export_modifier_to_variable = { modifier = $MOD$ variable = TEMP_var_MAX_MOD_cur }	#_|当前mod|
+	# |vl_舰体溢出抑制_减数|debug
+	if = { limit = { is_variable_set = vl_var_cntr_$MOD$_minus }
+		change_variable = { which = TEMP_var_MAX_MOD_cur value = vl_var_cntr_$MOD$_minus }
+	}
+	
+	# |MAX_mod|取PC中最大的mod值
+	prev = {#NPC0
+		if = { limit = { check_variable = { which = DDSC_var_npc0_$MOD$_MAX_MOD_PC value < prev.TEMP_var_MAX_MOD_cur } }
+			set_variable= { which = DDSC_var_npc0_$MOD$_MAX_MOD_PC value = prev.TEMP_var_MAX_MOD_cur }
+		}
+	}
+	clear_variable = TEMP_var_MAX_MOD_cur
+}
+
+
+###_[DDSC_数据统计]√	init_MAX_MOD/init_均战力	/tally/均战力计算
+#_var	|DDSC_var_npc0_$MOD$_MAX_MOD_PC	/DDSC_var_npc0_AVR_FP_pc/DDSC_var_npc0_AVR_FP_ai/DDSC_var_npc0_AVR_FP_fallen|
+z_fw_eft_npc0_DDSC_MAX_MOD_check = {
+	
+	##_[init_MAX_MOD]
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = ship_hull_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = shipclass_military_station_hull_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = ship_armor_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = ship_shield_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = ship_weapon_damage }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = shipclass_military_station_damage_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = weapon_type_explosive_weapon_damage_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = weapon_type_kinetic_weapon_damage_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = weapon_type_energy_weapon_damage_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = weapon_type_strike_craft_weapon_damage_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = ship_fire_rate_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = weapon_type_explosive_weapon_fire_rate_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = weapon_type_kinetic_weapon_fire_rate_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = weapon_type_energy_weapon_fire_rate_mult }
+	z_fw_prmt_eft_npc0_DDSC_MAX_MOD_init = { MOD = weapon_type_strike_craft_weapon_fire_rate_mult }
+	
+	##_[init_均战力]
+	# PC
+	set_variable = { which = DDSC_var_npc0_AVR_FP_pc value = 0 }
+	set_variable = { which = TEMP_var_npc0_used_naval_pc value = 0 }
+	# AI
+	set_variable = { which = DDSC_var_npc0_AVR_FP_ai value = 0 }
+	set_variable = { which = TEMP_var_npc0_used_naval_ai value = 0 }
+	# 堕落
+	set_variable = { which = DDSC_var_npc0_AVR_FP_fallen value = 0 }
+	set_variable = { which = TEMP_var_npc0_used_naval_fallen value = 0 }
+
+
+	##_[tally]	PC=均战力/SC_MAX_MOD	/AI/堕落
+	every_country = {
+		limit = {
+			OR = {
+				#_|玩家|
+				is_ai = no
+				#_|拥有舰队国家|
+				z_fw_trgr_cntr_has_fleet = yes
+				#_|可用全部国含mod|
+			#	z_fw_trgr_cntr_core_playable_mod = yes
+				#_|同步竞争支持国家|
+				z_fw_trgr_cntr_vl_faction_ai = yes
+				z_fw_trgr_cntr_vl_faction_fallen = yes
+			#	z_fw_trgr_cntr_vl_faction_threat = yes
+			#	z_fw_trgr_cntr_vl_faction_crisis = yes
+			#	z_fw_trgr_cntr_vl_faction_monster = yes
+			#	z_fw_trgr_cntr_vl_faction_lev = yes
+			}
+		}
+		#_|PC|
+		if = {
+			limit = {
+				is_ai = no
+				NOR = {
+					has_modifier = z_fw_mod_r_cht_fury_1
+					has_modifier = z_fw_mod_r_cht_fury_2
+					has_modifier = z_fw_mod_r_cht_fury_3
+					has_modifier = z_fw_mod_r_cht_fury_4
+					has_modifier = z_fw_mod_r_cht_fury_5
+				}
+			}
+			
+			# SC_MAX_MOD	|npc0.DDSC_var_npc0_$MOD$_MAX_MOD_PC|
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = ship_hull_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = shipclass_military_station_hull_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = ship_armor_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = ship_shield_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = ship_weapon_damage }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = shipclass_military_station_damage_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = weapon_type_explosive_weapon_damage_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = weapon_type_kinetic_weapon_damage_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = weapon_type_energy_weapon_damage_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = weapon_type_strike_craft_weapon_damage_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = ship_fire_rate_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = weapon_type_explosive_weapon_fire_rate_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = weapon_type_kinetic_weapon_fire_rate_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = weapon_type_energy_weapon_fire_rate_mult }
+			z_fw_prmt_eft_cntr_DDSC_MAX_MOD_check = { MOD = weapon_type_strike_craft_weapon_fire_rate_mult }
+			
+			# 均战力
+			prev = {
+				change_variable = { which = DDSC_var_npc0_AVR_FP_pc value = prev.trigger:fleet_power }
+				change_variable = { which = TEMP_var_npc0_used_naval_pc value = prev.trigger:used_naval_capacity_integer }
+			}
+		}
+		#_|AI|
+		if = {
+			limit = { z_fw_trgr_cntr_vl_faction_ai = yes }
+			# 均战力
+			prev = {
+				change_variable = { which = DDSC_var_npc0_AVR_FP_ai value = prev.trigger:fleet_power }
+				change_variable = { which = TEMP_var_npc0_used_naval_ai value = prev.trigger:used_naval_capacity_integer }
+			}
+		}
+		#_|堕落|
+		if = {
+			limit = { z_fw_trgr_cntr_vl_faction_fallen = yes }
+			# 均战力
+			prev = {
+				change_variable = { which = DDSC_var_npc0_AVR_FP_fallen value = prev.trigger:fleet_power }
+				change_variable = { which = TEMP_var_npc0_used_naval_fallen value = prev.trigger:used_naval_capacity_integer }
+			}
+		}
+	}
+
+
+	##_[均战力计算]	PC/AI/fallen
+	# PC
+	if = { limit = { check_variable = { which = TEMP_var_npc0_used_naval_pc value > 0 } }
+		divide_variable = { which = DDSC_var_npc0_AVR_FP_pc value = TEMP_var_npc0_used_naval_pc }
+		clear_variable = TEMP_var_npc0_used_naval_pc
+	}
+	else_if = { limit = { always = yes }	set_variable = { which = DDSC_var_npc0_AVR_FP_pc value = 0 } }
+	# AI
+	if = { limit = { check_variable = { which = TEMP_var_npc0_used_naval_ai value > 0 } }
+		divide_variable = { which = DDSC_var_npc0_AVR_FP_ai value = TEMP_var_npc0_used_naval_ai }
+		clear_variable = TEMP_var_npc0_used_naval_ai
+	}
+	else_if = { limit = { always = yes }	set_variable = { which = DDSC_var_npc0_AVR_FP_ai value = 0 } }
+	# fallen
+	if = { limit = { check_variable = { which = TEMP_var_npc0_used_naval_fallen value > 0 } }
+		divide_variable = { which = DDSC_var_npc0_AVR_FP_fallen value = TEMP_var_npc0_used_naval_fallen }
+		clear_variable = TEMP_var_npc0_used_naval_fallen
+	}
+	else_if = { limit = { always = yes }	set_variable = { which = DDSC_var_npc0_AVR_FP_fallen value = 0 } }
+
+}
+
+
+
+
+###_[DDSC_MOD期望计算]	普通/堕落/威胁/天灾/野怪/利维坦	########################################################################
+#_var	|DDSC_var_cntr_expect_$MOD$|
+
+#_prmt	<MOD>
+z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = {
+	set_variable = { which = DDSC_var_cntr_expect_$MOD$ value = event_target:z_fw_tgt_global_event.DDSC_var_npc0_$MOD$_MAX_MOD_PC }
+	multiply_variable = { which = DDSC_var_cntr_expect_$MOD$ value = TEMP_var_weight }
+}
+
+z_fw_eft_cntr_DDSC_MAX_MOD_expect = {#√
+	##_[阵营权重debug]
+	if = {# 普通
+		limit = { z_fw_trgr_cntr_vl_faction_ai = yes }
+		set_variable = { which = TEMP_var_weight value = event_target:z_fw_tgt_global_event.DDSC_var_set_mult_glbl }
+	}
+	else_if = {# 堕落
+		limit = { z_fw_trgr_cntr_vl_faction_fallen = yes }
+		set_variable = { which = TEMP_var_weight value = event_target:z_fw_tgt_global_event.DDSC_var_set_weight_fallen }
+	}
+	else_if = {# 威胁
+		limit = { z_fw_trgr_cntr_vl_faction_threat = yes }
+		set_variable = { which = TEMP_var_weight value = event_target:z_fw_tgt_global_event.DDSC_var_set_weight_threat }
+	}
+	else_if = {# 天灾
+		limit = { z_fw_trgr_cntr_vl_faction_crisis = yes }
+		set_variable = { which = TEMP_var_weight value = event_target:z_fw_tgt_global_event.DDSC_var_set_weight_crisis }
+	}
+	else_if = {# 野怪
+		limit = { z_fw_trgr_cntr_vl_faction_monster = yes }
+		set_variable = { which = TEMP_var_weight value = event_target:z_fw_tgt_global_event.DDSC_var_set_weight_monster }
+	}
+	else_if = {# 利维坦
+		limit = { z_fw_trgr_cntr_vl_faction_lev = yes }
+		set_variable = { which = TEMP_var_weight value = event_target:z_fw_tgt_global_event.DDSC_var_set_weight_lev }
+	}
+	else_if = {# 其他
+		limit = { always = yes }
+		set_variable = { which = TEMP_var_weight value = 0 }
+	}
+
+	##_[MOD期望debug]	*阵营权重
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = ship_hull_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = shipclass_military_station_hull_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = ship_armor_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = ship_shield_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = ship_weapon_damage }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = shipclass_military_station_damage_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = weapon_type_explosive_weapon_damage_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = weapon_type_kinetic_weapon_damage_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = weapon_type_energy_weapon_damage_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = weapon_type_strike_craft_weapon_damage_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = ship_fire_rate_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = weapon_type_explosive_weapon_fire_rate_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = weapon_type_kinetic_weapon_fire_rate_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = weapon_type_energy_weapon_fire_rate_mult }
+	z_fw_prmt_eft_cntr_DDSC_MAX_MOD_expect = { MOD = weapon_type_strike_craft_weapon_fire_rate_mult }
+	
+	##_[clear]
+	clear_variable = TEMP_var_weight
+}
+
+
+
+
+###_[DDSC_AI_mod清理]	########################################################################
+#_prmt	<MOD>
+z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = {
+	remove_modifier = z_fw_mod_cntr_DD_SC_$MOD$
+	if = { limit = { is_variable_set = DDSC_var_cntr_factor_$MOD$ }		clear_variable = DDSC_var_cntr_factor_$MOD$ }
+}
+
+z_fw_eft_cntr_DDSC_AI_MOD_clean = {
+	if = { limit = { NOT = { has_global_flag = z_fw_flg_glbl_DD_SC } }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = ship_hull_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = shipclass_military_station_hull_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = ship_armor_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = ship_shield_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = ship_weapon_damage }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = shipclass_military_station_damage_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = weapon_type_explosive_weapon_damage_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = weapon_type_kinetic_weapon_damage_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = weapon_type_energy_weapon_damage_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = weapon_type_strike_craft_weapon_damage_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = ship_fire_rate_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = weapon_type_explosive_weapon_fire_rate_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = weapon_type_kinetic_weapon_fire_rate_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = weapon_type_energy_weapon_fire_rate_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_clean = { MOD = weapon_type_strike_craft_weapon_fire_rate_mult }
+	}
+}
+
+
+###_[DDSC_AI_mod刷新]
+#_prmt	<MOD>
+#_flg	|DDSC_flg_cntr_$MOD$_ready|
+z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = {
+	###_[允许更新]		var计算/添加mod
+	if = {
+		limit = {#_|mod/factor/期望|必须同时存在
+			has_modifier = z_fw_mod_cntr_DD_SC_$MOD$
+			is_variable_set = DDSC_var_cntr_factor_$MOD$
+			is_variable_set = DDSC_var_cntr_expect_$MOD$	#_|期望|
+		}
+		
+		## var计算
+		export_modifier_to_variable = { modifier = $MOD$ variable = TEMP_var_MOD_cur }	#_|当前mod|
+		subtract_variable = { which = TEMP_var_MOD_cur value = DDSC_var_cntr_factor_$MOD$ }	#_|当前mod|-factor
+		# |vl_舰体溢出抑制_减数|debug
+		if = { limit = { is_variable_set = vl_var_cntr_$MOD$_minus }
+			change_variable = { which = TEMP_var_MOD_cur value = vl_var_cntr_$MOD$_minus }
+		}
+		# factor计算	|期望|-|当前mod|
+		set_variable = { which = DDSC_var_cntr_factor_$MOD$ value = DDSC_var_cntr_expect_$MOD$ }
+		subtract_variable = { which = DDSC_var_cntr_factor_$MOD$ value = TEMP_var_MOD_cur }
+		clear_variable = TEMP_var_MOD_cur
+		
+		## 添加mod
+		remove_modifier = z_fw_mod_cntr_DD_SC_$MOD$
+		if = { limit = { check_variable = { which = DDSC_var_cntr_factor_$MOD$ value > 0 } }
+			add_modifier = { modifier = z_fw_mod_cntr_DD_SC_$MOD$ days = -1 multiplier = DDSC_var_cntr_factor_$MOD$ }
+		}
+	}
+	###_[无法更新]
+	else_if = { limit = { always = yes }
+		remove_modifier = z_fw_mod_cntr_DD_SC_$MOD$
+		if = { limit = { is_variable_set = DDSC_var_cntr_factor_$MOD$ }		clear_variable = DDSC_var_cntr_factor_$MOD$ }
+		set_country_flag = DDSC_flg_cntr_$MOD$_ready	#_|准备flg|
+	}
+}
+
+z_fw_eft_cntr_DDSC_AI_MOD_debug = {
+	if = { limit = { has_global_flag = z_fw_flg_glbl_DD_SC }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = ship_hull_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = shipclass_military_station_hull_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = ship_armor_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = ship_shield_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = ship_weapon_damage }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = shipclass_military_station_damage_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = weapon_type_explosive_weapon_damage_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = weapon_type_kinetic_weapon_damage_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = weapon_type_energy_weapon_damage_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = weapon_type_strike_craft_weapon_damage_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = ship_fire_rate_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = weapon_type_explosive_weapon_fire_rate_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = weapon_type_kinetic_weapon_fire_rate_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = weapon_type_energy_weapon_fire_rate_mult }
+		z_fw_prmt_eft_cntr_DDSC_AI_MOD_debug = { MOD = weapon_type_strike_craft_weapon_fire_rate_mult }
+		
+		country_event = { id = z_fw_core_battle.21 days = 1 }	#_[DDSC_AI_mod延时]
+	}
+}
+
+
+###_[DDSC_AI_mod延时刷新]
+#_flg	|DDSC_flg_cntr_$MOD$_ready|
+#_prmt	<MOD>
+z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = {
+	###_[允许更新]		var计算/添加mod		---前置eft已经清除了|factor|与[mod],所以这里不需要了
+	if = {
+		limit = {#_|准备flg/期望|必须同时存在
+			has_country_flag = DDSC_flg_cntr_$MOD$_ready	#_|准备flg|
+			is_variable_set = DDSC_var_cntr_expect_$MOD$	#_|期望|
+		}
+		remove_country_flag = DDSC_flg_cntr_$MOD$_ready	#_|准备flg|
+		
+		## var计算
+		export_modifier_to_variable = { modifier = $MOD$ variable = TEMP_var_MOD_cur }	#_|当前mod|
+		# |vl_舰体溢出抑制_减数|debug
+		if = { limit = { is_variable_set = vl_var_cntr_$MOD$_minus }
+			change_variable = { which = TEMP_var_MOD_cur value = vl_var_cntr_$MOD$_minus }
+		}
+		# factor计算	|期望|-|当前mod|
+		set_variable = { which = DDSC_var_cntr_factor_$MOD$ value = DDSC_var_cntr_expect_$MOD$ }
+		subtract_variable = { which = DDSC_var_cntr_factor_$MOD$ value = TEMP_var_MOD_cur }
+		clear_variable = TEMP_var_MOD_cur
+		
+		## 添加mod
+		if = { limit = { check_variable = { which = DDSC_var_cntr_factor_$MOD$ value > 0 } }
+			add_modifier = { modifier = z_fw_mod_cntr_DD_SC_$MOD$ days = -1 multiplier = DDSC_var_cntr_factor_$MOD$ }
+		}
+	}
+}
+
+#_<DDSC_AI_mod延时>
+z_fw_eft_cntr_DDSC_AI_MOD_delay = {
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = ship_hull_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = shipclass_military_station_hull_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = ship_armor_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = ship_shield_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = ship_weapon_damage }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = shipclass_military_station_damage_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = weapon_type_explosive_weapon_damage_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = weapon_type_kinetic_weapon_damage_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = weapon_type_energy_weapon_damage_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = weapon_type_strike_craft_weapon_damage_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = ship_fire_rate_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = weapon_type_explosive_weapon_fire_rate_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = weapon_type_kinetic_weapon_fire_rate_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = weapon_type_energy_weapon_fire_rate_mult }
+	z_fw_prmt_eft_cntr_DDSC_AI_MOD_delay = { MOD = weapon_type_strike_craft_weapon_fire_rate_mult }
+}
+
+
+

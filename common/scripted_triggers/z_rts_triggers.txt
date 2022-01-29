@@ -1,0 +1,21 @@
+#_[安装检测]	RTS激活/RTS战争
+
+
+
+
+###_[安装检测]	##############################################################################
+#_[RTS激活]
+z_rts_trgr_glbl_activated = {
+	OR = {
+		has_global_flag = z_rts_installed
+		has_global_flag = z_rtss_installed
+		has_global_flag = z_rtsb_installed
+	}
+}
+#_[RTS战争]
+z_rts_trgr_glbl_warfare = {
+	OR = {
+		has_global_flag = z_rts_installed
+		has_global_flag = z_rtsb_installed
+	}
+}

@@ -1,0 +1,393 @@
+###_infinite stellaris core system		####################################################################
+#_核心系统 global与misc 周期性检测事件与debug
+namespace = z_fw_core
+#_[初始化_核心]		安装检视/全局事件NPC/初始数据统计/pc检测/人口上限_初始化_前置/星系构成flg/初始化_滞后/开局框架设置
+#_[设定host]
+#_[初始化_滞后]		人口上限_初始化_滞后/core_恒星尺寸修正/初始化_debug
+#_[万用初始化]		安装检视/全局事件NPC/pc检测/星系构成flg
+
+#_[国家月检]
+#_[灭国_分配遗产/初体验_基础npc]
+#_[Core目标定位器]		r_cht/r_普通
+
+
+###_核心元素
+#_ui		[z_mm_evt_tips_gui=有图 /z_mm_gui_evt_520_240_no_room=无图]
+#_glbl		|linkage_support/z_framework_installed/z_modmenu_installed		/z_framework_activated|
+#_trgr		|z_fw_trgr_cntr_core_mp_host=z_fw_flg_cntr_core_host			/z_fw_trgr_cntr_core_pc_init/z_fw_trgr_cntr_core_pc_current=z_fw_flg_cntr_init_pc|
+
+
+
+
+#_<on_game_start>
+###_[初始化_核心]	[id=1]
+#_		安装检视/初始化/core_数据统计/core_周期检测/pc检测/core_星球遍历_初始
+#_		人口上限_初始化_前置/星系构成flg/初始化_滞后/开局框架设置
+#_global_flag		[z_framework_installed]				核心功能
+#_country_flag		[z_fw_flg_cntr_init_pc]					初始pc检测
+#_global_flag		[z_fw_plnt_capacity_disabled]		人口上限<配合p2与dr>---前置
+event = {
+	id = z_fw_core.1
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		##_[安装检视]
+		if = {
+			limit = { NOT = { has_global_flag = z_framework_installed } }
+			set_global_flag = z_framework_installed
+		}
+		
+		##_[初始化]
+		z_fw_eft_glbl_core_init_debug = yes	#_[初始化_debug]
+		z_fw_eft_glbl_core_init_npc = yes	#_[初始化_npc]
+		##_[core_数据统计]
+		z_fw_eft_glbl_core_num_stats = yes
+		##_[core_周期检测]
+		z_fw_eft_glbl_core_periodic_check_yearly = yes
+		z_fw_eft_glbl_core_periodic_check_monthly = yes	#_[月度计时器]
+		##_[pc检测]
+		every_country = { limit = { is_ai = no }	set_country_flag = z_fw_flg_cntr_init_pc }
+		
+		##_[人口上限_初始化_前置]	<如果安装了[后期优化]且没有[产业革命]则自动清除>
+		set_global_flag = z_fw_plnt_capacity_disabled
+		##_[星系构成flg]
+		z_fw_eft_glbl_system_composition_debug = yes
+				
+		#_[开局flg初始化]
+		set_global_flag = z_fw_flg_glbl_start_monument		#_|遗珍]
+		set_global_flag = z_fw_flg_glbl_start_relic
+		remove_global_flag = z_fw_flg_glbl_wg_cb_disabled	#_|战争类型|
+		set_global_flag = z_fw_core_weap_tech_linkage		#_|科技联动|
+		set_global_flag = z_fw_flg_glbl_DD_PB				#_|难度适应|
+		remove_global_flag = z_fw_flg_glbl_DD_PTW
+		set_global_flag = z_fw_flg_glbl_DD_SC
+		remove_global_flag = z_fw_core_battle_dd_fp_adpt_easy
+		set_global_flag = z_fw_core_battle_dd_fp_adpt_standard
+		remove_global_flag = z_fw_core_battle_dd_fp_adpt_hard
+		remove_global_flag = z_fw_flg_glbl_battle_vl_0		#_|RTS|
+		remove_global_flag = z_fw_flg_glbl_battle_vl_1
+		remove_global_flag = z_fw_flg_glbl_battle_vl_2
+		
+		##_[初始化_滞后/开局框架设置]---<NPC=z_global_event_holder>
+		event_target:z_fw_tgt_global_event = {
+			country_event = { id = z_fw_core.10 days = 1 }	#_[初始化_滞后]
+			country_event = { id = z_modmenu.100 days = 3 }	#_[开局框架设置]	z_mm联动<初始化_面板>
+			country_event = { id = z_fw_core.1002 days = 7 }	#_[必须存在host]
+		}
+	}
+}
+
+#_[on_game_start_country]
+###_[设定host]	[id=100]
+country_event = {
+	id = z_fw_core.100
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { NOT = { has_country_flag = z_fw_flg_cntr_core_host } }
+	immediate = {
+		set_country_flag = z_fw_flg_cntr_core_host
+		country_event = { id = z_fw_core.1001 days = 2 }
+	}
+}
+#_<z_fw_core.100>	host_debug	<防止开局改国家类型造成host失效>
+country_event = {
+	id = z_fw_core.1001
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { NOT = { has_country_flag = z_fw_flg_cntr_core_host } }
+	immediate = {
+		set_country_flag = z_fw_flg_cntr_core_host
+		country_event = { id = z_modmenu.120 }
+	}
+}
+#_<z_fw_core.1>	host_debug	必须存在一个hostPC
+country_event = {
+	id = z_fw_core.1002
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { NOT = { any_country = { has_country_flag = z_fw_flg_cntr_core_host } } }	#_|不存在host|
+	immediate = {
+		random_country = { limit = { is_ai = no }
+			set_country_flag = z_fw_flg_cntr_core_host
+			country_event = { id = z_modmenu.120 }
+		}
+	}
+}
+
+#_[初始化_滞后]	[id=10]		人口上限_初始化_滞后/core_恒星尺寸修正/初始化_debug
+country_event = {
+	id = z_fw_core.10
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		###_[人口上限_初始化_滞后]
+		if = {
+			limit = {
+				NOT = { has_global_flag = z_pr_installed }
+				has_global_flag = z_pf2_installed		#_00 performance plus
+			}
+			remove_global_flag = z_fw_plnt_capacity_disabled
+		}
+		###_[core_恒星尺寸修正]
+		z_fw_eft_glbl_star_size_debug = yes
+		
+		###_[初始化_debug]
+		z_fw_eft_glbl_core_init_debug = yes
+	}
+}
+
+###_[万用初始化]	[id=111]
+#_		安装检视/初始化/core_数据统计/core_周期检测/core_星球遍历_初始
+#_		pc检测/星系构成flg
+country_event = {
+	id = z_fw_core.111
+	hide_window = yes
+	fire_only_once = yes
+	trigger = { is_ai = no }
+	mean_time_to_happen = { days = 23 }
+	
+	immediate = {
+		if = {
+			##_[安装检视]
+			limit = { NOT = { has_global_flag = z_framework_installed } }
+			set_global_flag = z_framework_installed
+			##_[初始化]
+			z_fw_eft_glbl_core_init_debug = yes	#_[初始化_debug]
+			z_fw_eft_glbl_core_init_npc = yes	#_[初始化_npc]
+			##_[core_数据统计]
+			z_fw_eft_glbl_core_num_stats = yes
+			##_[core_周期检测]
+			z_fw_eft_glbl_core_periodic_check_yearly = yes
+			z_fw_eft_glbl_core_periodic_check_monthly = yes	#_[月度计时器]
+		}
+		##_[pc检测]
+		every_country = {
+			limit = { is_ai = no }
+			set_country_flag = z_fw_flg_cntr_init_pc
+		}
+		##_[星系构成flg]
+		z_fw_eft_glbl_system_composition_debug = yes
+	}
+}
+
+
+
+
+
+
+
+
+
+###_[country_pulse] [id=2]	#############################################################################
+
+##_[国家月检] [id=21]
+country_event = {
+	id = z_fw_core.21
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { always = no }
+	
+	immediate = {
+	}
+}
+
+##_[on_yearly_pulse_country] [id=22]
+#_[list]		星球人口限制/koh玩家传染/pc_debug/AI添加骰子
+#_[pc_debug]	[清除意外buff]
+#_country_eft	[z_fw_eft_cntr_DD_FP_init][z_fw_eft_cntr_battle_dd_pb_init]	z_fw_core_Battle_dd
+#_cntr_flg		[z_fw_flg_cntr_r_hok_kogasa]	<r_hok>
+country_event = {
+	id = z_fw_core.22
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+	}
+}
+
+#_[on_bi_yearly_pulse_country]debug	[id=23]
+#_list		[koh_AI传染]
+country_event = {
+	id = z_fw_core.23
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { always = no }
+	
+	immediate = {
+	}
+}
+
+#_[on_five_year_pulse_country]debug [id=24]
+country_event = {
+	id = z_fw_core.24
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { always = no }
+	
+	immediate = {
+	}
+}
+
+
+
+
+
+
+
+
+###_[灭国_分配遗产]	[id=41]	##################################################
+#_<on_country_destroyed>
+#_[z_fw_eft_cntr_core_destroyed_relic]
+country_event = {
+	id = z_fw_core.41
+	hide_window = yes
+	is_triggered_only = yes
+
+	immediate = {
+		#_遗产_relic分配
+		z_fw_eft_cntr_core_destroyed_relic = yes
+	}
+}
+#_处理后事_意外毁灭分配遗珍
+country_event = {
+	id = z_fw_core.411
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		num_owned_relics >= 1
+		count_playable_country = {
+			limit = {
+				NOT = { is_same_value = root }
+				OR = {
+					is_ai = no
+					#_VANILLA
+					is_country_type = default
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+					#_EV
+					is_country_type = default_ev
+					#_ZOFE
+					is_country_type = ascended_empire
+					is_country_type = lost_empire
+				}
+			}
+			count > 0
+		}
+	}
+	
+	immediate = {
+		random_playable_country = {
+			limit = {#_只能分配给玩家和可用ai国家
+				NOT = { is_same_value = root }
+				OR = {
+					is_ai = no
+					#_VANILLA
+					is_country_type = default
+					is_country_type = fallen_empire
+					is_country_type = awakened_fallen_empire
+					#_EV
+					is_country_type = default_ev
+					#_ZOFE
+					is_country_type = ascended_empire
+					is_country_type = lost_empire
+				}
+			}
+			#_[获取随机relic]
+			steal_relic = { target = prev relic = random }
+			#_[玩家_通知2单体]
+			if = {
+				limit = { is_ai = no }
+				country_event = { id = z_fw_core.4112 }
+			}
+		}
+		country_event = { id = z_fw_core.411 }	#_自循环
+	}
+}
+#_通知1全部
+country_event = {
+	id = z_fw_core.4111
+	is_triggered_only = yes
+	title = z_fw_evt_core_cntr.relic_receiver_1
+	desc = z_fw_evt_core_cntr.relic_receiver_1.desc
+	picture = GFX_evt_z_modmenu_no_mod
+	is_triggered_only = yes
+	trigger = { is_ai = no }
+	diplomatic = yes
+	custom_gui = "z_mm_evt_tips_gui"
+	picture_event_data = {
+		room = z_mm_evt_tips_room
+	}
+	option = {
+        custom_gui = "z_mm_button_evt_option_green"
+		name = z_lctr_tips_good
+	}
+}
+#_通知2单体
+country_event = {
+	id = z_fw_core.4112
+	is_triggered_only = yes
+	title = z_fw_evt_core_cntr.relic_receiver_2
+	desc = z_fw_evt_core_cntr.relic_receiver_2.desc
+	picture = GFX_evt_z_modmenu_no_mod
+	is_triggered_only = yes
+	trigger = { is_ai = no }
+	diplomatic = yes
+	custom_gui = "z_mm_evt_tips_gui"
+	picture_event_data = {
+		room = z_mm_evt_tips_room
+	}
+	option = {
+        custom_gui = "z_mm_button_evt_option_green"
+		name = z_lctr_tips_good
+	}
+}
+
+
+
+
+###_[初体验_基础npc]	[id=42]	基础npc/	##################################################
+#_<on_first_contact>
+country_event = {
+	id = z_fw_core.42
+	hide_window = yes
+	is_triggered_only = yes
+	location = fromfromfrom
+
+	trigger = {
+		from = {
+			OR = {
+				is_country_type = z_fw_npc_global		#_[全局]
+				is_country_type = z_fw_npc_temp_neutral		#_[默认中立]
+				is_country_type = z_fw_npc_temp_neutral_self_dismantle	#_[自我拆解]
+				is_country_type = z_fw_npc_perm_hostile		#_[默认敌对]
+			}
+		}
+	}
+	immediate = { establish_communications_no_message = from }
+}
+
+
+
+
+
+
+
+
+###_[Core目标定位器] [id=6]	r_cht/r_普通	#############################################################################
+#_<on_entering_system_fleet>		跃迁完成
+fleet_event = {
+	id = z_fw_core.60
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { has_fleet_flag = z_fw_flg_flt_tgt }	#_[通用目标定位器flg]
+	
+	immediate = {
+		###_[r_cht]
+		if = { limit = { has_fleet_flag = z_fw_flg_flt_tgt_r_cht_co }	fleet_event = { id = z_fw1_misc.30 } }		#_[r_cht_co_初始触发器]
+		if = { limit = { has_fleet_flag = z_fw_flg_flt_tgt_r_cht_emp }	fleet_event = { id = z_fw1_misc.35 } }		#_[r_cht_emp_初始触发器]
+		###_[r_普通]
+	}
+}
+
+

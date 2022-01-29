@@ -1,0 +1,407 @@
+###_z_fw_核心功能触发器	##############################################################################################
+
+#_其他				z测试
+
+#_[初始化]			初始化_核心/初始化_面板		/设定主持者
+#_[核心触发器]
+#_[战争]			Core胜利/Core战败	/Core失效/Core激活
+#_[舰船]			Core建造/Core升级	/Core进入星系/Core目标定位器	/自动矿站/自我拆解
+#_[科研]
+#_[周期国家]
+#_[国家misc]		胜利/	灭国/初体验		/vl_合并附庸/vl_释放附庸
+#_[领袖触发]		hok_伞鼬
+#_[星系触发]		vl_获得星系
+#_[星球触发]		Core星球毁灭
+
+
+
+
+
+###_[初始化]	#######################################################
+on_game_start = {
+	events = {
+		z_fw_core.1					#_[初始化_核心]
+		z_modmenu.10				#_[初始化_面板]
+	}
+}
+#仅作用于default
+on_game_start_country = {
+	events = {
+		z_fw_core.100				# 设定主持者
+	}
+}
+
+
+
+
+
+
+
+
+#_[核心触发器]	#######################################################
+on_monthly_pulse = {
+	events = {
+		z_fw_core.12				# 核心月检
+		z_fw1_misc.120				# 自动矿站触发器
+	}
+}
+on_yearly_pulse = {
+	events = {
+		z_fw_core.13				# 核心年检
+	}
+}
+on_bi_yearly_pulse = {
+	events = {
+		z_fw_core.14				# 核心二年DB
+	}
+}
+on_five_year_pulse = {
+	events = {
+		z_fw_core.15				# 核心五年DB
+	}
+}
+on_decade_pulse = {
+	events = {
+		z_fw_core.16				# 核心十年DB
+	}
+}
+
+on_mid_game_pulse = {
+	events = {
+	}
+}
+on_late_game_pulse = {
+	events = {
+	}
+}
+
+
+
+
+
+
+
+
+#_[战争]	#######################################################
+
+# This = owner of fleet 1
+# From = owner of fleet 2
+# FromFrom = fleet 1
+# FromFromFrom = fleet 2
+on_entering_battle = {
+	events = {
+		z_fw_core_battle.1				# 接战框架
+		z_fw1_relic_koh.4				# HOK接战
+	}
+}
+
+# This = owner of fleet 1 (winner)
+# From = owner of fleet 2 (loser)
+# FromFrom = fleet 1
+# FromFromFrom = fleet 2
+on_space_battle_won = {
+	events = {
+		z_fw_core_battle.13				# Core胜利
+	}
+}
+# This = owner of fleet 1 (loser)
+# From = owner of fleet 2 (winner)
+# FromFrom = fleet 1
+# FromFromFrom = fleet 2
+on_space_battle_lost = {
+	events = {
+		z_fw_core_battle.14				# Core战败
+	}
+}
+
+##_[失效激活]	############################
+# This = Ship
+# From = Disabler Ship
+on_ship_disabled = {
+	events = {
+		z_fw_core_battle.15				# Core失效
+	}
+}
+# This = Ship
+on_ship_enabled = {
+	events = {
+		z_fw_core_battle.16				# Core激活
+	}
+}
+
+
+
+
+
+
+
+
+###_[舰船]	#####################################################
+# A ship has been built
+# Root = Ship
+# From = Planet
+on_ship_built = {
+	events = {
+	#	z_modmenu.1130					#_[z测试：舰船mod刷新timing]
+		z_fw_core_battle_flt.10			#_[Core建造]
+	}
+}
+# A ship has been upgraded
+#  Root = Ship
+on_ship_upgraded = {
+	events = {
+		z_fw_core_battle_flt.11			#_[Core升级]
+	}
+}
+
+
+# A fleet has entered a system
+# Scope = Fleet
+# From = System
+on_entering_system_fleet = {
+	events = {
+		z_fw_core_battle_flt.20			#_[Core进入星系]
+		z_fw_core.60					#_[Core目标定位器]
+	}
+}
+#From = Planet scope
+#This = Fleet scope
+on_fleet_enter_orbit = {
+	events = {
+	#	z_fw1_misc.130					# 禁止AI挖坟
+		z_fw1_misc.140					# 自我拆解
+	}
+}
+# This = owner of fleet
+# From = fleet
+# FromFrom = planet (if any)
+on_fleet_auto_move_arrival = {
+	events = {
+	#	z_fw1_misc.131					# 禁止AI挖坟DB
+	}
+}
+
+
+# This = owner of fleet 1 (destroyed)
+# From = owner of fleet 2 (combatant)
+# FromFrom = fleet 1
+# FromFromFrom = fleet 2
+on_fleet_destroyed_victim = {
+	events = {
+		z_fw1_misc.121					# 自动矿站_被击毁
+		z_fw1_misc.141					# 自我拆解_被击毁
+		z_modmenu.111					# z测试-靶机被毁
+	}
+}
+# This = owner of fleet
+# From = disbanded fleet
+on_fleet_disbanded = {
+	events = {
+	#	z_fw1_misc.122					# 自动矿站_被解散
+	}
+}
+
+
+# This = Attacked Fleet
+# From = Aggressor Fleet
+# FromFrom = Additional Attacked Fleet (if joining ongoing combat)
+# FromFromFrom = Additional Attacked Fleet (if joining ongoing combat)
+on_fleet_combat_joined_attacker = {
+	events = {
+	}
+}
+# This = Aggressor Fleet
+# From = Attacked Fleet
+# FromFrom = Additional Attacked Fleet (if part of ongoing combat)
+# FromFromFrom = Additional Attacked Fleet (if part of ongoing combat)
+on_fleet_combat_joined_defender = {
+	events = {
+	}
+}
+
+
+
+
+
+
+
+
+#_[科研]	#######################################################
+on_tech_increased = {
+	events = {
+	#	z_fw_core_tech.11				# beam
+	#	z_fw_core_tech.12				# 瓦解
+	#	z_fw_core_tech.13				# 电浆
+	#	z_fw_core_tech.14				# 量子鱼雷
+	#	z_fw_core_tech.15				# pd
+	#	z_fw_core_tech.21				# 高斯
+	#	z_fw_core_tech.22				# 巨炮
+	#	z_fw_core_tech.23				# 加特林
+	#	z_fw_core_tech.24				# 防空
+	#	z_fw_core_tech.31				# 导弹
+	#	z_fw_core_tech.32				# 鱼雷
+	#	z_fw_core_tech.33				# 蜂巢
+	#	z_fw_core_tech.34				# 飞机
+	#	z_fw_core_tech.41				# xl beam
+	#	z_fw_core_tech.42				# xl 巨炮
+	#	z_fw_core_tech.43				# xl 电弧
+	#	z_fw_core_tech.44				# xl 导弹
+	#	z_fw_core_tech.51				# 甲
+	#	z_fw_core_tech.52				# 盾
+	#	z_fw_core_tech.53				# 核心
+	}
+}
+
+
+
+
+
+
+
+
+###_[周期国家]	仅支持普通国家	#####################################################
+# this = country
+on_monthly_pulse_country = {
+	events = {
+	#	z_fw_core.21				# 国家月检
+		z_fw1_misc.125				# 自动矿站debug
+	}
+}
+# this = country
+on_yearly_pulse_country = {
+	events = {
+	}
+}
+# this = country
+on_bi_yearly_pulse_country = {
+	events = {
+	}
+}
+# this = country
+on_five_year_pulse_country = {
+	events = {
+	}
+}
+
+
+
+
+
+
+
+
+###_[国家misc]	#####################################################
+
+# Root = Winner Warleader
+# From = Loser Warleader
+# FromFrom = War
+on_war_won = {
+	events = {
+		z_fw1_misc.11				# 战争胜利_渴望点数
+	}
+}
+#This = destroyed country
+#From = optional, destroyer (country)
+on_country_destroyed = {
+	events = {
+		z_fw_core.41				# 灭国_分配遗产
+		z_fw1_misc.111				# 灭国_渴望点数
+		z_fw1_misc.312				# 璀璨星图_灭国
+	}
+}
+
+
+##_[初体验]
+# Triggered when two empires discover each other
+# This = Empire 1
+# From = Empire 2
+# Fromfromfrom = System where contact occurred
+on_first_contact = {
+	events = {
+		z_fw_core.42				#_[初体验_基础npc]
+	}
+}
+
+
+# fires when a country finishes being integrated
+# This = overlord
+# From = subject
+on_subject_integrated = {
+	events = {
+		z_fw_core_battle_vl.14		#_[vl_合并附庸]
+	}
+}
+# fires when a country releases a sector as a vassal
+# This = released vassal
+# From = overlord
+on_released_as_vassal = {
+	events = {
+		z_fw_core_battle_vl.141		#_[vl_释放附庸]
+	}
+}
+
+
+
+
+
+###_[领袖触发]	#####################################################
+# This = Country
+# From = Leader
+on_leader_death = {
+	events = {
+		z_fw1_relic_koh.311			#_[伞鼬复活]
+	}
+}
+
+# This = Country
+# From = Leader
+on_leader_fired = {
+	events = {
+		z_fw1_relic_koh.311			#_[伞鼬复活]
+	}
+}
+
+
+
+
+
+
+
+
+###_[星系触发]	#####################################################
+
+##_[交易征服]
+# From = system
+# FromFrom = country (new owner)
+# This = country (previous owner)
+on_system_lost = {
+	events = {
+	}
+}
+# From = system
+# FromFrom = country (previous owner)
+# This = country (new owner)
+on_system_gained = {
+	events = {
+		z_fw_core_battle_vl.13		# vl_获得星系
+	}
+}
+
+
+
+
+
+
+
+
+###_[星球触发]	#####################################################
+
+# A colony has been destroyed. Called just before owner and controller is cleared
+# Scope = Planet
+on_colony_destroyed = {
+	events = {
+		z_fw_core_planet.20				# Core星球毁灭
+	}
+}
+
+

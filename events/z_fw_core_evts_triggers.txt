@@ -1,0 +1,552 @@
+###_infinite stellaris core system		####################################################################
+#_核心系统	周期触发器	id=1x
+namespace = z_fw_core
+
+#_[核心月检]
+#_[核心年检/AI添加随机战争buff]
+#_[核心二年DB]
+#_[核心五年DB]		hok星球debug/core_恒星尺寸修正
+#_[核心十年DB]		星系构成flg
+
+
+#_难度适应		[z_fw_core_battle.22]=经济补助
+#_global_flag	[z_fw_flg_glbl_DD_PB]													阶段强化	<z_modmenu.120>
+#_country_eft	[z_fw_eft_cntr_battle_dd_pb_init][z_fw_eft_cntr_battle_dd_pb_cycle]
+#_global_flag	[z_fw_flg_glbl_DD_PTW]													清除弱者	<z_modmenu.120>
+#_global_flag	[z_fw_flg_glbl_DD_SC][z_fw_core_battle_dd_fp_adaptive]					同步竞争	<z_modmenu.120>
+
+
+
+
+###_[global_pulse]	[id=1x]	######################################################################################################################################################################################################
+
+###_[核心月检][id=12]	<on_monthly_pulse>
+##_list					月度计时器
+##_|core_NPC0|
+	# 月度前置			npc0_月度debug/mod安装检测器/MOD安装动态检测
+	# 季度				DDSC_数据统计.触发
+	# 半年				DDSC_AI执行.触发
+	# 月度后置			DDSC_数据统计/DDSC_AI执行.触发2
+	##_[各国遍历]
+		# 各国_月度		vl_国家基础修正_自检	/PTW清除弱者/DDSC_AI执行
+		# 各国_双月		RTS比例建造	
+		# 各国_半年		WR经济补助
+
+#_DD开关	[z_fw_flg_glbl_DD_PB/z_fw_flg_glbl_DD_PTW/z_fw_flg_glbl_DD_SC]
+event = {
+	id = z_fw_core.12
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		###_[月度计时器]
+		z_fw_eft_glbl_core_periodic_check_monthly = yes	
+
+
+		###_[core_NPC0]		####################################################################################################################################
+		# 月度前置		npc0_月度debug/mod安装检测器/MOD安装动态检测
+		# 季度			DDSC_数据统计.触发
+		# 半年			DDSC_AI执行.触发
+		# 月度后置		DDSC_数据统计/DDSC_AI执行.触发2
+		if = { limit = { exists = event_target:z_fw_tgt_global_event }
+			event_target:z_fw_tgt_global_event = {
+			
+				##_[月度前置]	##################################################################
+				
+				# npc0_月度debug
+			#	z_fw_eft_npc0_core_monthly_debug = yes
+			
+				# mod安装检测器
+				if = { limit = { NOT = { has_modifier = z_fw_mod_cntr_mod_installed } }			add_modifier = { modifier = z_fw_mod_cntr_mod_installed days = -1 } }
+				
+				# MOD安装动态检测
+				FW_eft_NPC0_mod_install_pr_azl = yes		#_[pr_azl安装自检]
+				FW_eft_NPC0_mod_install_pr_wsg = yes		#_[pr_wsg安装自检]
+				FW_eft_NPC0_mod_install_pr_CG = yes			#_[pr_CG安装自检]
+				FW_eft_NPC0_mod_install_pr_ACOT = yes		#_[pr_ACOT安装自检]
+				FW_eft_NPC0_mod_install_pr_Giga = yes		#_[pr_Giga安装自检
+				
+				FW_eft_glbl_SAI_install_debug = yes			#_[PR_SAI安装自检]
+				FW_eft_glbl_mod_install_pr_patch = yes		#_[pr_patch初始化]
+				FW_eft_NPC0_mod_install_pr_patch_DB = yes	#_[PR_patch安装自检]
+
+
+				##_[季度]	##################################################################
+				if = {
+					limit = {
+						has_global_flag = z_fw_flg_glbl_DD_SC	#_|DDSC激活|
+
+						OR = {
+							FW_timer_month = { MONTH = 2 }
+							FW_timer_month = { MONTH = 5 }
+							FW_timer_month = { MONTH = 8 }
+							FW_timer_month = { MONTH = 11 }
+						}
+					}
+					# DDSC_数据统计.触发
+					if = { limit = { has_country_flag = DDSC_flg_npc0_MAX_MOD_checked }	#_|执行过|=3个月
+						remove_country_flag = DDSC_flg_npc0_MAX_MOD_checked
+					}
+					else = { set_country_flag = DDSC_flg_npc0_MAX_MOD_check_ready }
+				}
+
+
+				#_[半年]	##################################################################
+				if = {
+					limit = {
+						has_global_flag = z_fw_flg_glbl_DD_SC	#_|DDSC激活|
+						
+						OR = {
+							FW_timer_month = { MONTH = 3 }
+							FW_timer_month = { MONTH = 9 }
+						}
+					}
+					# DDSC_AI执行.触发
+					if = { limit = { has_country_flag = DDSC_flg_npc0_AI_debug_checked }	#_|执行过|=3个月
+						remove_country_flag = DDSC_flg_npc0_AI_debug_checked
+					}
+					else = { set_country_flag = DDSC_flg_npc0_AI_debug_ready }
+				}
+
+
+				##_[月度后置]	##################################################################
+				# DDSC_数据统计
+				if = { limit = { has_country_flag = DDSC_flg_npc0_MAX_MOD_check_ready }
+					remove_country_flag = DDSC_flg_npc0_MAX_MOD_check_ready
+					z_fw_eft_npc0_DDSC_MAX_MOD_check = yes		#_[DDSC_数据统计]
+				}
+				# DDSC_AI执行.触发2
+				if = { limit = { has_country_flag = DDSC_flg_npc0_AI_debug_ready }
+					remove_country_flag = DDSC_flg_npc0_AI_debug_ready
+					set_timed_global_flag = { flag = DDSC_flg_glbl_AI_debug_execute days = 1 }	#_|DDSC_AI执行中|
+				}
+				
+				
+				
+				
+				##_[各国遍历]	####################################################################################################################################
+				# 各国_月度		vl_国家基础修正_自检	/PTW清除弱者/DDSC_AI执行
+				# 各国_双月		RTS比例建造	
+				# 各国_半年		WR经济补助
+				every_country = {
+					limit = {
+						OR = {
+							is_ai = no	#_|玩家|
+							z_fw_trgr_cntr_has_fleet = yes	#_|拥有舰队国家|
+							z_fw_trgr_cntr_core_playable_mod = yes	#_|可用全部国含mod|
+							#_|同步竞争支持国家|
+							z_fw_trgr_cntr_vl_faction_ai = yes
+							z_fw_trgr_cntr_vl_faction_fallen = yes
+							z_fw_trgr_cntr_vl_faction_threat = yes
+							z_fw_trgr_cntr_vl_faction_crisis = yes
+							z_fw_trgr_cntr_vl_faction_monster = yes
+							z_fw_trgr_cntr_vl_faction_lev = yes
+						}
+					}
+					
+					
+					#_[各国_月度]	##################################################################
+					# vl_国家基础修正_自检
+					country_event = { id = z_fw_core_battle_vl.1 }
+					# PTW清除弱者
+					if = {
+						limit = {
+							#_|基础条件|
+							years_passed > 20
+							has_global_flag = z_fw_flg_glbl_DD_PTW	#_|清除弱者激活|
+							#_|国家条件|
+							NOT = { has_country_flag = z_fw_flg_glbl_DD_PTW_cd }
+							z_fw_trgr_cntr_core_pc_current = no	#_|不是当前pc|
+						}
+						z_fw_eft_cntr_DD_PTW_variable = yes		#_[PTW变量统计]
+					}
+					# DDSC_AI执行
+					if = {
+						limit = {
+							has_global_flag = DDSC_flg_glbl_AI_debug_execute	#_|DDSC_AI执行中|
+							OR = {
+								#_|同步竞争支持国家|
+								z_fw_trgr_cntr_vl_faction_ai = yes
+								z_fw_trgr_cntr_vl_faction_fallen = yes
+								z_fw_trgr_cntr_vl_faction_threat = yes
+								z_fw_trgr_cntr_vl_faction_crisis = yes
+								z_fw_trgr_cntr_vl_faction_monster = yes
+								z_fw_trgr_cntr_vl_faction_lev = yes
+							}
+						}
+						z_fw_eft_cntr_DDSC_MAX_MOD_expect = yes	#_[DDSC_MOD期望计算]
+						z_fw_eft_cntr_DDSC_AI_MOD_clean = yes	#_[DDSC_AI_mod清理]
+						z_fw_eft_cntr_DDSC_AI_MOD_debug = yes	#_[DDSC_AI_mod刷新]
+					}
+					
+			
+					#_[各国_双月]	##################################################################
+					if = {
+						limit = {
+							# 月份
+							OR = {
+								FW_timer_month = { MONTH = 2 }
+								FW_timer_month = { MONTH = 4 }
+								FW_timer_month = { MONTH = 6 }
+								FW_timer_month = { MONTH = 8 }
+								FW_timer_month = { MONTH = 10 }
+								FW_timer_month = { MONTH = 12 }
+							}
+						}
+					
+						#_[RTS比例建造]
+						if = {
+							limit = {
+								#_|基础条件|
+								z_rts_trgr_glbl_warfare = yes
+								#_|国家条件|
+								is_ai = yes
+								z_fw_trgr_cntr_vl_faction_ai = yes
+							}
+							RTS_eft_cntr_fraction_debug = yes	#_[RTS舰队比例建造]
+						}
+					}
+					
+					
+					#_[各国_半年]	##################################################################
+					if = {#|各国_季度|の前面
+						limit = {
+							# 月份
+							OR = {
+								FW_timer_month = { MONTH = 1 }
+								FW_timer_month = { MONTH = 7 }
+							}
+						}
+						
+						#_[WR经济补助]
+						if = {
+							limit = {
+								#_|基础条件|
+								has_global_flag = z_fw_flg_glbl_DD_PB	#_|阶段强化激活|
+								#_|国家条件|
+								z_fw_core_dd_is_monthly_economy_ai = yes
+								NAND = {#非PC附庸
+									is_subject = yes
+									any_country = {
+										z_fw_trgr_cntr_core_pc_current = yes
+										is_overlord_to = prev
+									}
+								}
+							}
+							country_event = { id = z_fw_core_battle.22 days = 4 random = 3 }	#_[WR_经济补助延时]
+						}
+					}
+				}
+			}
+			
+		}
+	}
+}
+
+
+
+
+
+
+
+
+###_[核心年检][id=13]	
+#_<on_yearly_pulse>
+#_list			初始化/core_数据统计/月度计时器校准		/vl_npc0设置DB		/拥有舰队国家debug
+#_sub			#AI添加随机战争buff#
+#_global_flag	[z_fw_flg_glbl_DD_SC][z_fw_core_battle_dd_fp_adaptive][z_fw_core_battle_dd_fp_periodic]	<战力强化>
+#_global_tgt	[z_fw_tgt_global_event]		#_cntr_flg	[z_fw_flg_r_cht_fury_on]Fury_Cht中
+event = {
+	id = z_fw_core.13
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		###_[初始化]	check
+		z_fw_eft_glbl_core_init_debug = yes	#_[初始化_debug]
+		z_fw_eft_glbl_core_init_npc = yes	#_[初始化_npc]
+		###_[core_数据统计]
+		z_fw_eft_glbl_core_num_stats = yes
+		###_[月度计时器校准]
+		z_fw_eft_glbl_core_periodic_check_yearly = yes
+		
+		###_[vl_npc0设置DB]		防止初始设定意外清除
+		z_fw_eft_glbl_vl_debug = yes
+		
+		###_[拥有舰队国家debug]		koh玩家传染/koh伞鼬/AI骰子/pc_debug/vl_国家debug
+		every_country = {
+			limit = { z_fw_trgr_cntr_has_fleet = yes }	#_|拥有舰队国家|
+			
+			##_[koh玩家传染]
+			if = { limit = { z_fw_trgr_cntr_r_hok_valid = yes }		country_event = { id = z_fw1_relic_koh.104 days = 7 random = 4 } }
+			##_[koh伞鼬]
+			if = { limit = { has_country_flag = z_fw_flg_cntr_r_hok_kogasa }	country_event = { id = z_fw1_relic_koh.310 days = 7 random = 4  } }
+			##_[AI骰子]
+			z_fw_eft_cntr_rdm_dice = yes
+			##_[pc_debug]	清理buff
+			if = {
+				limit = { is_ai = no }
+				##_[清除意外buff]
+				z_fw_eft_cntr_DD_FP_init = yes		#_z_fw_core_battle_fp
+				z_fw_eft_cntr_battle_dd_pb_init = yes		#_z_fw_core_battle_pb
+			}
+			
+			##_[vl_国家debug]
+			set_country_flag = z_fw_flg_cntr_vl_basic_debug_ready	#_|vl_国家基础修正_DB触发|添加
+			z_fw_eft_cntr_hull_OF_minus_debug = yes		#_[vl_舰体溢出抑制_debug]
+		}
+	}
+}
+
+
+#_[z_fw_core.13]
+#_[AI添加随机战争buff]	execute<无trgr>		1/3的国家拥有战争buff
+country_event = {
+	id = z_fw_core.131
+	hide_window = yes
+	is_triggered_only = yes
+	
+	immediate = {
+		#_	3			1
+		if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 3 }
+				}
+			}
+			z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+		}
+		#_	3~6		2
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 3 }
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 6 }
+				}
+			}
+			while = {
+				count = 2
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+		#_	6~9		3
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 6 }
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 9 }
+				}
+			}
+			while = {
+				count = 3
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+		#_	9~12		4
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 9 }
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 12 }
+				}
+			}
+			while = {
+				count = 4
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+		#_	12~15		5
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 12 }
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 15 }
+				}
+			}
+			while = {
+				count = 5
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+		#_	15~18		6
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 15 }
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 18 }
+				}
+			}
+			while = {
+				count = 6
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+		#_	18~21		7
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 18 }
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 21 }
+				}
+			}
+			while = {
+				count = 7
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+		#_	21~24		8
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 21 }
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 24 }
+				}
+			}
+			while = {
+				count = 8
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+		#_	24~27		9
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 24 }
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 27 }
+				}
+			}
+			while = {
+				count = 9
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+		#_	27~30		10
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 27 }
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 30 }
+				}
+			}
+			while = {
+				count = 10
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+		#_	30~33		11
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 30 }
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value <= 33 }
+				}
+			}
+			while = {
+				count = 11
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+		#_	33+			12
+		else_if = {
+			limit = {
+				event_target:z_fw_tgt_global_event = {
+					check_variable = { which = z_fw_var_glbl_num_normal_ai value > 33 }
+				}
+			}
+			while = {
+				count = 12
+				z_fw_eft_glbl_core_cntr_rdm_buff_battle = yes
+			}
+		}
+	}
+}
+
+
+
+
+
+
+
+
+##_[核心二年DB]	<on_bi_yearly_pulse>	[id=14]
+#_list			dd_同步竞争/资源储量debug/互动国家debug
+#_global_flag	[z_fw_flg_glbl_DD_PB]	<阶段强化>	<需要清除eft>
+event = {
+	id = z_fw_core.14
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		###_[dd_同步竞争]
+		if = {
+			limit = {
+				years_passed > 35
+				has_global_flag = z_fw_flg_glbl_DD_PB
+			}
+			every_country = {
+				limit = { z_fw_core_dd_is_ignored_type = no }
+				z_fw_eft_cntr_battle_dd_pb_init = yes	#_[阶段强化初始化]
+				z_fw_eft_cntr_battle_dd_pb_cycle = yes	#_[阶段强化循环]
+			}
+		}
+		###_[资源储量debug]
+		z_fw_eft_glbl_res_stock_debug = yes
+		
+		
+		###_[互动国家debug]	koh_AI传染
+		every_country = {
+			limit = { count_owned_fleet = { count > 0 } }	#_|拥有舰队|
+			##_[koh_AI传染]
+			if = { limit = { z_fw_trgr_cntr_r_hok_valid = yes }		country_event = { id = z_fw1_relic_koh.103 days = 7 random = 4 } }
+		}
+	}
+}
+
+
+
+
+
+
+
+
+##_[核心五年DB]	[id=15]
+#_	hok星球debug/core_恒星尺寸修正
+event = {
+	id = z_fw_core.15
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		every_galaxy_planet = {
+			limit = {
+				is_colony = yes
+				has_planet_flag = z_fw_flg_plnt_r_hok_infected
+			}
+			###_[hok星球debug]
+			if = {#_臭鼬已全部净化,清除星球鼬化标记
+				limit = { NOT = { any_owned_pop = { z_fw_r_koh_is_species_karyl = yes } } }
+				remove_planet_flag = z_fw_flg_plnt_r_hok_infected
+			}
+		}
+		###_[core_恒星尺寸修正]	主要是mem巨大恒星
+		z_fw_eft_glbl_star_size_debug = yes
+	}
+}
+
+
+
+
+
+
+
+
+##_[核心十年DB]	[id=16]
+#_	星系构成flg
+event = {
+	id = z_fw_core.16
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		###_[星系构成flg]
+		z_fw_eft_glbl_system_composition_debug = yes
+	}
+}
+
+
+

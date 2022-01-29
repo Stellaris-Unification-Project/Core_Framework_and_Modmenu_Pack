@@ -1,0 +1,21 @@
+#_[RTS造船资源debug]
+
+
+
+
+###_[RTS造船资源debug]
+RTS_mod_AI_fleet_resources = {
+	icon = GFX_z_fw_core_battle_pb
+	hide_from_country_list = yes
+	
+	ships_upkeep_mult = -1.0
+	ships_energy_upkeep_mult = 1.0
+	ships_alloys_upkeep_mult = 1.0
+
+	ships_cost_mult = -1.0
+	ships_energy_cost_mult = 1.0
+	ships_alloys_cost_mult = 1.0
+	ships_volatile_motes_cost_mult = 1.0
+	ships_exotic_gases_cost_mult = 1.0
+	ships_rare_crystals_cost_mult = 1.0
+}

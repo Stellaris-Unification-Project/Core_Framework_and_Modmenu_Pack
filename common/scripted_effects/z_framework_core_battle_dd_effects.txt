@@ -1,0 +1,517 @@
+###_z modmenu-framework-core-动态难度 effects	###########################################################
+#_years		40/85/135/190
+
+#_[PTW添加修正/PTW变量统计]
+#_[WR_经济补助/PE_阶段强化]
+
+
+###_引用
+	#_sp_mod_flag	[nhsc_v30][acot_activated][sofe_activated][zofe_activated][wg_crisis_triggered]
+
+	#_trigger		[z_fw_core_dd_is_ignored_type]		忽略的国家类型
+	#_var			[z_fw_core_battle_dd_var]
+
+	#_global_tgt	[z_fw_tgt_global_event]				全局事件NPC0
+	#_var			[z_fw_core_battle_dd_execute_var]
+
+
+
+
+
+
+
+###_[PTW添加修正]	<PTW变量统计/PTW强力执行>	########################################################################
+z_fw_eft_cntr_DD_PTW_add_modifier = {
+	# init
+	remove_modifier = z_fw_core_ptw_fp_lv0
+	remove_modifier = z_fw_core_ptw_fp_lv1
+	remove_modifier = z_fw_core_ptw_fp_lv2
+	remove_modifier = z_fw_core_ptw_fp_lv3
+	remove_modifier = z_fw_core_ptw_fp_lv4
+	remove_modifier = z_fw_core_ptw_fp_lv5
+	
+	# 概率添加
+	if = {
+		limit = { check_variable = { which = z_fw_var_cntr_PTW_request value >= 6 } }
+		random_list = {
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv5 days = 90 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 61 }
+			}
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv5 days = 60 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 31 }
+			}
+			5 = { add_modifier = { modifier = z_fw_core_ptw_fp_lv5 days = 30 } }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { which = z_fw_var_cntr_PTW_request value = 5 } }
+		random_list = {
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv4 days = 90 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 61 }
+			}
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv4 days = 60 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 31 }
+			}
+			5 = { add_modifier = { modifier = z_fw_core_ptw_fp_lv4 days = 30 } }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { which = z_fw_var_cntr_PTW_request value = 4 } }
+		random_list = {
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv3 days = 90 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 61 }
+			}
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv3 days = 60 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 31 }
+			}
+			5 = { add_modifier = { modifier = z_fw_core_ptw_fp_lv3 days = 30 } }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { which = z_fw_var_cntr_PTW_request value = 3 } }
+		random_list = {
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv2 days = 90 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 61 }
+			}
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv2 days = 60 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 31 }
+			}
+			5 = { add_modifier = { modifier = z_fw_core_ptw_fp_lv2 days = 30 } }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { which = z_fw_var_cntr_PTW_request value = 2 } }
+		random_list = {
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv1 days = 90 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 61 }
+			}
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv1 days = 60 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 31 }
+			}
+			5 = { add_modifier = { modifier = z_fw_core_ptw_fp_lv1 days = 30 } }
+		}
+	}
+	else_if = {
+		limit = { check_variable = { which = z_fw_var_cntr_PTW_request value = 1 } }
+		random_list = {
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv0 days = 90 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 61 }
+			}
+			10 = {
+				add_modifier = { modifier = z_fw_core_ptw_fp_lv0 days = 60 }
+				set_timed_country_flag = { flag = z_fw_flg_glbl_DD_PTW_cd days = 31 }
+			}
+			5 = { add_modifier = { modifier = z_fw_core_ptw_fp_lv0 days = 30 } }
+		}
+	}
+}
+
+#_[PTW变量统计]<核心月检>	需求var统计/普通国家修正	/clear
+#_country_flag		[z_fw_flg_glbl_DD_PTW_cd]清除弱者CD
+#_country_var		[z_fw_var_cntr_PTW_request]强化需求
+z_fw_eft_cntr_DD_PTW_variable = {
+
+	##_[需求var统计]	
+	# 需求的舰队=3×时代
+	set_variable = { which = z_fw_var_cntr_PTW_request value = trigger:years_passed }	#_|舰队需求|
+	if = { limit = { check_variable = { which = z_fw_var_cntr_PTW_request value > 250 } }		set_variable = { which = z_fw_var_cntr_PTW_request value = 250 } }
+	multiply_variable = { which = z_fw_var_cntr_PTW_request value = 3 }
+	change_variable = { which = z_fw_var_cntr_PTW_request value = 50 }	#最少50舰容舰队
+	# 堕落帝国=2倍
+	if = { limit = { z_fw_trgr_cntr_PTW_powerful = yes }		multiply_variable = { which = z_fw_var_cntr_PTW_request value = 2 } }
+	# 舰队需求比例
+	divide_variable = { which = z_fw_var_cntr_PTW_request value = trigger:used_naval_capacity_integer }
+
+
+	##_[普通国家修正]
+	if = { limit = { z_fw_trgr_cntr_PTW_normal = yes }
+		# 战争状态
+		if = { limit = { is_at_war = yes }
+			multiply_variable = { which = z_fw_var_cntr_PTW_request value = 0.5 }
+		}
+		# |最高需求|=5
+		if = { limit = { check_variable = { which = z_fw_var_cntr_PTW_request value > 5.1 } }			set_variable = { which = z_fw_var_cntr_PTW_request value = 5.1 } }
+	}
+
+
+	##_[PTW添加修正]
+	floor_variable = z_fw_var_cntr_PTW_request	#_向下取整
+	z_fw_eft_cntr_DD_PTW_add_modifier = yes
+	
+	## clear
+	clear_variable = z_fw_var_cntr_PTW_request
+}
+
+
+
+
+###_[WR_经济补助]	<WR_经济补助延时>	########################################################################
+z_fw_eft_cntr_dd_wr = {
+		
+	# 星球数
+	if = { limit = { num_owned_planets >= 7 }#默认
+		set_variable = { which = TEMP_var_dd_wr value = 1 }
+		change_variable = { which = TEMP_var_dd_wr value = trigger:num_owned_planets }
+	}
+	else_if = { limit = { num_owned_planets < 7 }#弱者复兴
+		set_variable = { which = TEMP_var_dd_wr value = 7 }
+	}
+	# 时代
+	if = { limit = { years_passed > 190 }			multiply_variable = { which = TEMP_var_dd_wr value = 1.0 } }
+	else_if = { limit = { years_passed > 135 }		multiply_variable = { which = TEMP_var_dd_wr value = 0.5 } }
+	else_if = { limit = { years_passed > 85 }		multiply_variable = { which = TEMP_var_dd_wr value = 0.25 } }
+	else_if = { limit = { years_passed > 40 }		multiply_variable = { which = TEMP_var_dd_wr value = 0.12 } }
+	else_if = { limit = { years_passed <= 40 }		multiply_variable = { which = TEMP_var_dd_wr value = 0.06 } }
+	# weight
+	multiply_variable = { which = TEMP_var_dd_wr value = 0.6 }
+
+	# 单星半年产出
+	# vanilla
+	add_resource = {
+		energy = 720
+		minerals = 540
+		food = 360
+		alloys = 540
+		consumer_goods = 270
+		unity = 270
+		influence = 6
+		exotic_gases = 54
+		volatile_motes = 54
+		rare_crystals = 54
+		sr_dark_matter = 27
+		mult = TEMP_var_dd_wr
+	}
+	# ACOT
+	if = { limit = { has_global_flag = acot_activated }
+		add_resource = {
+			sr_dark_matter = 216
+			acot_sr_dark_energy = 108
+			acot_sr_stellarite = 54
+			mult = TEMP_var_dd_wr
+		}
+	}
+	# ESC
+	if = { limit = { has_global_flag = nhsc_v30 }
+		add_resource = {
+			nanites = 54	#_vanilla
+			esc_living_crystal = 18	#_可交易
+			esc_psionic_charge = 54
+			esc_gravitic_anomaly = 54
+			esc_transdimensional_vortex = 54
+			esc_enigmatic_energy = 54
+			mult = TEMP_var_dd_wr
+		}
+	}
+	
+	clear_variable = TEMP_var_dd_wr
+}
+
+
+
+
+###_[PE_阶段强化]	阶段强化初始化/阶段强化循环	####################################
+
+#_[阶段强化初始化]	<核心年检/核心二年DB		/开局设置_战争与经济/框架设置main>
+z_fw_eft_cntr_battle_dd_pb_init = {
+	remove_modifier = z_fw_core_dd_wr_esc
+	remove_modifier = z_fw_core_dd_wr_acot
+	remove_modifier = z_fw_core_dd_pb_sp_enemy_sofe
+	remove_modifier = z_fw_core_dd_pb_sp_enemy_mist
+	#_default
+	remove_modifier = z_fw_core_dd_pb_default_1
+	remove_modifier = z_fw_core_dd_pb_default_2
+	remove_modifier = z_fw_core_dd_pb_default_3
+	remove_modifier = z_fw_core_dd_pb_default_4
+	#_fallen
+	remove_modifier = z_fw_core_dd_pb_sp_enemy_zofe
+	remove_modifier = z_fw_core_dd_pb_fallen_war
+	remove_modifier = z_fw_core_dd_pb_fallen_millitant_war
+	remove_modifier = z_fw_core_dd_pb_fallen_1
+	remove_modifier = z_fw_core_dd_pb_fallen_2
+	remove_modifier = z_fw_core_dd_pb_fallen_3
+	remove_modifier = z_fw_core_dd_pb_fallen_4
+	#_creature
+	remove_modifier = z_fw_core_dd_pb_wild_1
+	remove_modifier = z_fw_core_dd_pb_wild_2
+	remove_modifier = z_fw_core_dd_pb_wild_3
+	remove_modifier = z_fw_core_dd_pb_wild_4
+	remove_modifier = z_fw_core_dd_pb_leviathan_1
+	remove_modifier = z_fw_core_dd_pb_leviathan_2
+	remove_modifier = z_fw_core_dd_pb_leviathan_3
+	remove_modifier = z_fw_core_dd_pb_leviathan_4
+	#_crisis
+	remove_modifier = z_fw_core_dd_pb_mid_threat_1
+	remove_modifier = z_fw_core_dd_pb_mid_threat_2
+	remove_modifier = z_fw_core_dd_pb_mid_threat_3
+	remove_modifier = z_fw_core_dd_pb_mid_threat_4
+	remove_modifier = z_fw_core_dd_pb_end_crisis_1
+	remove_modifier = z_fw_core_dd_pb_end_crisis_2
+	remove_modifier = z_fw_core_dd_pb_end_crisis_3
+	remove_modifier = z_fw_core_dd_pb_end_crisis_4
+}
+
+#_prmt		<MODIFIER>
+z_fw_prmt_eft_cntr_AD_PB_bouns = {
+	if = { limit = { years_passed >= 190 }				add_modifier = { modifier = $MODIFIER$_4 days = -1 } }
+	else_if = { limit = { years_passed >= 135 }			add_modifier = { modifier = $MODIFIER$_3 days = -1 } }
+	else_if = { limit = { years_passed >= 85 }			add_modifier = { modifier = $MODIFIER$_2 days = -1 } }
+	else_if = { limit = { years_passed >= 40 }			add_modifier = { modifier = $MODIFIER$_1 days = -1 } }
+}
+#_[阶段强化循环] PB_add_pb_buff	<核心二年DB		/开局设置_战争与经济/框架设置main>
+z_fw_eft_cntr_battle_dd_pb_cycle = {
+	#_normal_AI
+	if = {
+		limit = {
+			OR = {
+				is_country_type = default
+				is_country_type = prikki
+				is_country_type = ascended_empire	#_zofe
+				is_country_type = lost_empire
+				is_country_type = default_ev		#_ev
+			}
+		}
+		#_wr
+		if = {
+			limit = { has_global_flag = acot_activated }
+			add_modifier = { modifier = z_fw_core_dd_wr_acot days = -1 }
+		}
+		if = {
+			limit = { has_global_flag = nhsc_v30 }
+			add_modifier = { modifier = z_fw_core_dd_wr_esc days = -1 }
+		}
+		#_sp
+		if = {
+			limit = { has_global_flag = sofe_activated }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_sofe days = -1 }
+		}
+		if = {
+			limit = { has_global_flag = wg_crisis_triggered }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_mist days = -1 }
+		}
+		#_[阶段强化]
+		z_fw_prmt_eft_cntr_AD_PB_bouns = { MODIFIER = z_fw_core_dd_pb_default }
+	}
+	#_fallen_AI
+	else_if = {
+		limit = {
+			OR = {
+			#	is_country_type = fallen_empire
+			#	is_country_type = awakened_fallen_empire
+				has_country_flag = fallen_empire_1		#_materialist
+				has_country_flag = fallen_empire_2		#_spiritualist
+				has_country_flag = fallen_empire_3		#_xenophile
+				has_country_flag = fallen_empire_4		#_xenophobe	|菌菇|
+				has_country_flag = fallen_empire_machine
+			#	is_fallen_empire_machine = yes
+			#	is_fallen_empire_materialist = yes
+			#	is_fallen_empire_spiritualist = yes
+			#	is_fallen_empire_xenophobe = yes
+			#	is_fallen_empire_xenophile = yes
+			}
+		}
+		#_wr
+		if = {
+			limit = { has_global_flag = acot_activated }
+			add_modifier = { modifier = z_fw_core_dd_wr_acot days = -1 }
+		}
+		if = {
+			limit = { has_global_flag = nhsc_v30 }
+			add_modifier = { modifier = z_fw_core_dd_wr_esc days = -1 }
+		}
+		#_sp
+		if = {
+			limit = { has_global_flag = sofe_activated }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_sofe_counter days = -1 }
+		}
+		if = {
+			limit = { has_global_flag = wg_crisis_triggered }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_mist days = -1 }
+		}
+		if = {
+			limit = { has_global_flag = zofe_activated }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_zofe days = -1 }
+		}
+		#_fallen_type
+		if = {#_菌菇
+			limit = { has_country_flag = fallen_empire_4 }	#_xenophobe
+		#	limit = { is_fallen_empire_xenophobe = yes }
+			add_modifier = { modifier = z_fw_core_dd_pb_fallen_millitant_war days = -1 }
+		}
+		else_if = {#_其他
+			limit = {
+				OR = {
+					has_country_flag = fallen_empire_1		#_materialist
+					has_country_flag = fallen_empire_2		#_spiritualist
+					has_country_flag = fallen_empire_3		#_xenophile
+					has_country_flag = fallen_empire_machine
+				#	is_fallen_empire_machine = yes
+				#	is_fallen_empire_materialist = yes
+				#	is_fallen_empire_spiritualist = yes
+				#	is_fallen_empire_xenophile = yes
+				}
+			}
+			add_modifier = { modifier = z_fw_core_dd_pb_fallen_war days = -1 }
+		}
+		#_[阶段强化]
+		z_fw_prmt_eft_cntr_AD_PB_bouns = { MODIFIER = z_fw_core_dd_pb_fallen }
+	}
+	#_wild
+	else_if = {
+		limit = {
+			OR = {
+				is_country_type = pirate					#_海盗
+				is_country_type = tiyanki					#_event_target:tiyanki_country
+				is_country_type = tiyanki_garrison
+				is_country_type = amoeba					#_event_target:amoeba_country
+				is_country_type = amoeba_borderless
+				is_country_type = amoeba_garrison
+				is_country_type = crystal					#_event_target:crystal_country
+				is_country_type = drone						#_event_target:drone_country
+				is_country_type = cloud						#_event_target:cloud_country
+				is_country_type = vol						#_远星-沃尔 event_target:mardak_vol_haters_country
+				is_country_type = vluur
+				is_country_type = shroud_spirits			#_灵能存在体 event_target:shroud_country
+				is_country_type = faction					#_默认
+				is_country_type = marauder_raiders			#_游牧部落
+				is_country_type = awakened_marauders		#_游牧部落
+				is_country_type = dormant_marauders			#_游牧部落
+				is_country_type = ruined_marauders			#_游牧部落
+			}
+		}
+		#_sp
+		if = {
+			limit = { has_global_flag = sofe_activated }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_sofe days = -1 }
+		}
+		if = {
+			limit = { has_global_flag = wg_crisis_triggered }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_mist days = -1 }
+		}
+		#_[阶段强化]
+		z_fw_prmt_eft_cntr_AD_PB_bouns = { MODIFIER = z_fw_core_dd_pb_wild }
+	}
+	#_利维坦
+	else_if = {
+		limit = {
+			OR = {
+				#_原版利维坦
+				is_country_type = guardian
+				is_country_type = guardian_dragon
+				is_country_type = guardian_stellarite
+				is_country_type = guardian_wraith
+				is_country_type = guardian_hiver
+				is_country_type = guardian_horror
+				is_country_type = guardian_fortress
+				is_country_type = guardian_dreadnought
+				is_country_type = guardian_sphere
+				#_远星
+				is_country_type = guardian_scavenger_bot
+				is_country_type = guardian_elderly_tiyanki
+				is_country_type = ldragon_country			#_L星龙
+				is_country_type = guardian_hatchling
+				#_other
+				is_country_type = enigmatic_cache			#_神秘储存器 event_target:enigmatic_cache_country
+				is_country_type = htbd_horde				#_巨龙之路
+				#_SOFE守门人
+				is_country_type = sofe_sentinel_dormant
+				is_country_type = sofe_sentinel_active
+			}
+		}
+		#_sp
+		if = {
+			limit = { has_global_flag = sofe_activated }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_sofe_counter days = -1 }
+		}
+		if = {
+			limit = { has_global_flag = wg_crisis_triggered }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_mist days = -1 }
+		}
+		#_[阶段强化]
+		z_fw_prmt_eft_cntr_AD_PB_bouns = { MODIFIER = z_fw_core_dd_pb_leviathan }
+	}
+	#_中期威胁
+	else_if = {
+		limit = {
+			OR = {
+				is_country_type = gray_goo					#_灰风
+				#_其他中立
+				is_country_type = enclave					#_飞地
+				is_country_type = cybrex_empire				#_天灾友好
+				is_country_type = sentinels					#_天灾友好
+				#_MEM
+				is_country_type = mem_vazurans				#_瓦祖兰
+				is_country_type = mem_blacksite_faction
+				is_country_type = mem_dread_pirate_country
+				is_country_type = mem_dread_pirate_final_boss_country
+				is_country_type = mem_station_smasher
+				is_country_type = mem_everything_smasher
+				is_country_type = mem_azran
+				is_country_type = mem_surveyor_country_red	#_同类其他国家暂时不涉及
+				is_country_type = mem_wpdr_country
+				#_野生虫群
+				is_country_type = feral_prethoryn			#_event_target:feral_prethoryn
+				is_country_type = feral_prethoryn_infighting	#_event_target:feral_prethoryn_infighting
+			}
+		}
+		#_sp
+		if = {
+			limit = { has_global_flag = sofe_activated }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_sofe days = -1 }
+		}
+		if = {
+			limit = { has_global_flag = wg_crisis_triggered }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_mist days = -1 }
+		}
+		#_[阶段强化]
+		z_fw_prmt_eft_cntr_AD_PB_bouns = { MODIFIER = z_fw_core_dd_pb_mid_threat }
+	}
+	#_天灾
+	else_if = {
+		limit = {
+			OR = {
+				#_vanilla
+				is_country_type = swarm
+				is_country_type = extradimensional
+				is_country_type = extradimensional_2
+				is_country_type = extradimensional_3
+				is_country_type = ai_empire
+				#_LEX-需要lex增强mod
+				is_country_type = bwm_ancient_drone_guardian
+				is_country_type = bwm_ragnarok_guardian
+				is_country_type = bwm_shroud_guardian
+				is_country_type = bwm_ring_guardian
+				is_country_type = bwm_ring_guardian_passive
+				is_country_type = bwm_grave_guardian
+				is_country_type = bwm_grave_guardian_passive
+				is_country_type = bwm_conduit_guardian
+				is_country_type = bwm_ancestor_guardian
+				is_country_type = bwm_prison_passive
+				is_country_type = bwm_gate_guardian
+			}
+		}
+		#_sp
+		if = {
+			limit = { has_global_flag = sofe_activated }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_sofe days = -1 }
+		}
+		if = {
+			limit = { has_global_flag = wg_crisis_triggered }
+			add_modifier = { modifier = z_fw_core_dd_pb_sp_enemy_mist days = -1 }
+		}
+		#_[阶段强化]
+		z_fw_prmt_eft_cntr_AD_PB_bouns = { MODIFIER = z_fw_core_dd_pb_end_crisis }
+	}
+}
+
+
