@@ -159,7 +159,7 @@ z_fw_eft_glbl_core_init_npc = {
 				create_ship_design = { design = "NAME_z_fw_autostation_ship" }
 				add_ship_design = last_created_design
 				##_[联系]
-				every_country = {
+				every_playable_country = {
 					limit = { is_ai = no }
 					establish_communications_no_message = event_target:z_fw_tgt_global_event
 					prev = { set_faction_hostility = { target = prev set_friendly = yes } }
@@ -198,7 +198,7 @@ z_fw_eft_glbl_core_init_npc = {
 				add_ship_design = last_created_design
 				create_ship_design = { design = "NAME_AI_Transport" }	#运输船
 				add_ship_design = last_created_design
-				every_country = {
+				every_playable_country = {
 					limit = { is_ai = no }
 					establish_communications_no_message = event_target:z_fw_tgt_global_event
 				}
@@ -272,7 +272,7 @@ z_fw_eft_glbl_core_num_stats = {
 				prev = { change_variable = { which = z_fw_var_glbl_num_normal_ai value = 1 } }
 			}
 			#_[pc数]
-			every_country = {
+			every_playable_country = {
 				limit = { is_ai = no }
 				prev = { change_variable = { which = z_fw_var_glbl_num_pc value = 1 } }
 			}
@@ -402,8 +402,7 @@ z_fw_eft_cntr_core_destroyed_relic = {
 						is_ai = no
 						#_VANILLA
 						is_country_type = default
-						is_country_type = fallen_empire
-						is_country_type = awakened_fallen_empire
+						is_fallen_empire = yes
 						#_EV
 						is_country_type = default_ev
 						#_ZOFE

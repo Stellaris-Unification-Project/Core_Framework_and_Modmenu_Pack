@@ -901,7 +901,7 @@ z_fw_eft_flt_vl_debug = {
 			##_[全射速]
 			export_modifier_to_variable = { modifier = ship_fire_rate_mult variable = z_fw_var_flt_vl_rate_all }
 			#_[mod添加]
-			if = { limit = { NOT = { check_variable = { which = z_fw_var_flt_vl_rate_all value = 0 } } }
+			if = { limit = { check_variable = { which = z_fw_var_flt_vl_rate_all value != 0 } }
 				#_[伤害补偿]
 				if = { limit = { z_fw_trgr_glbl_battle_vl_all = no }		add_modifier = { modifier = z_fw_mod_flt_vl_damage_all days = -1 multiplier = z_fw_var_flt_vl_rate_all } }
 				#_[射速转化]
@@ -912,7 +912,7 @@ z_fw_eft_flt_vl_debug = {
 			##_[爆炸]
 			export_modifier_to_variable = { modifier = weapon_type_explosive_weapon_fire_rate_mult variable = z_fw_var_flt_vl_rate_g }
 			#_[mod添加]
-			if = { limit = { NOT = { check_variable = { which = z_fw_var_flt_vl_rate_g value = 0 } } }
+			if = { limit = { check_variable = { which = z_fw_var_flt_vl_rate_g value != 0 } }
 				#_[伤害补偿]
 				if = { limit = { z_fw_trgr_glbl_battle_vl_all = no }		add_modifier = { modifier = z_fw_mod_flt_vl_damage_g days = -1 multiplier = z_fw_var_flt_vl_rate_g } }
 				#_[射速转化]
@@ -923,7 +923,7 @@ z_fw_eft_flt_vl_debug = {
 			##_[动能]
 			export_modifier_to_variable = { modifier = weapon_type_kinetic_weapon_fire_rate_mult variable = z_fw_var_flt_vl_rate_k }
 			#_[mod添加]
-			if = { limit = { NOT = { check_variable = { which = z_fw_var_flt_vl_rate_k value = 0 } } }
+			if = { limit = { check_variable = { which = z_fw_var_flt_vl_rate_k value != 0 } }
 				#_[伤害补偿]
 				if = { limit = { z_fw_trgr_glbl_battle_vl_all = no }		add_modifier = { modifier = z_fw_mod_flt_vl_damage_k days = -1 multiplier = z_fw_var_flt_vl_rate_k } }
 				#_[射速转化]
@@ -934,7 +934,7 @@ z_fw_eft_flt_vl_debug = {
 			##_[能量]
 			export_modifier_to_variable = { modifier = weapon_type_energy_weapon_fire_rate_mult variable = z_fw_var_flt_vl_rate_e }
 			#_[mod添加]
-			if = { limit = { NOT = { check_variable = { which = z_fw_var_flt_vl_rate_e value = 0 } } }
+			if = { limit = { check_variable = { which = z_fw_var_flt_vl_rate_e value != 0 } }
 				#_[伤害补偿]
 				if = { limit = { z_fw_trgr_glbl_battle_vl_all = no }		add_modifier = { modifier = z_fw_mod_flt_vl_damage_e days = -1 multiplier = z_fw_var_flt_vl_rate_e } }
 				#_[射速转化]
@@ -945,7 +945,7 @@ z_fw_eft_flt_vl_debug = {
 			##_[飞机]
 			export_modifier_to_variable = { modifier = weapon_type_strike_craft_weapon_fire_rate_mult variable = z_fw_var_flt_vl_rate_h }
 			#_[mod添加]
-			if = { limit = { NOT = { check_variable = { which = z_fw_var_flt_vl_rate_h value = 0 } } }
+			if = { limit = { check_variable = { which = z_fw_var_flt_vl_rate_h value != 0 } }
 				#_[伤害补偿]
 				if = { limit = { z_fw_trgr_glbl_battle_vl_all = no }		add_modifier = { modifier = z_fw_mod_flt_vl_damage_h days = -1 multiplier = z_fw_var_flt_vl_rate_h } }
 				#_[射速转化]

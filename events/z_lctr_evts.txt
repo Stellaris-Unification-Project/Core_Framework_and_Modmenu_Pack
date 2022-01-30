@@ -279,8 +279,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_dragon_trophy.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_dragon_trophy }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_dragon_trophy
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_dragon_trophy }
 		}
 		allow = {
@@ -301,8 +303,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_khans_throne.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_khans_throne }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_khans_throne
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_khans_throne }
 		}
 		allow = {
@@ -323,8 +327,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_worm_scales.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_worm_scales }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_worm_scales
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_worm_scales }
 		}
 		allow = {
@@ -345,8 +351,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_rubricator.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_rubricator }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_rubricator
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_rubricator }
 		}
 		allow = {
@@ -367,8 +375,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_galaxy.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_galaxy }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_galaxy
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_galaxy }
 		}
 		allow = {
@@ -389,8 +399,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_omnicodex.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_omnicodex }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_omnicodex
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_omnicodex }
 		}
 		allow = {
@@ -411,8 +423,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_surveyor.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_surveyor }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_surveyor
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_surveyor }
 		}
 		allow = {
@@ -433,8 +447,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_galatron.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_galatron }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_galatron
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_galatron }
 		}
 		allow = {
@@ -455,8 +471,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_ancient_sword.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_ancient_sword }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_ancient_sword
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_ancient_sword }
 		}
 		allow = {
@@ -477,8 +495,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_severed_head.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_severed_head }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_severed_head
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_severed_head }
 		}
 		allow = {
@@ -499,8 +519,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_prethoryn_queen.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_prethoryn_queen }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_prethoryn_queen
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_prethoryn_queen }
 		}
 		allow = {
@@ -521,8 +543,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_unbidden_warlock.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_unbidden_warlock }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_unbidden_warlock
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_unbidden_warlock }
 		}
 		allow = {
@@ -543,8 +567,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_contingency_core.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_contingency_core }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_contingency_core
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_contingency_core }
 		}
 		allow = {
@@ -565,8 +591,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_zro_crystal.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_zro_crystal }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_zro_crystal
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_zro_crystal }
 		}
 		allow = {
@@ -587,8 +615,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_the_last_baol.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_the_last_baol }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_the_last_baol
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_the_last_baol }
 		}
 		allow = {
@@ -609,8 +639,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_the_defragmentor.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_the_defragmentor }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_the_defragmentor
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_the_defragmentor }
 		}
 		allow = {
@@ -631,8 +663,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_reality_perforator.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_reality_perforator }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_reality_perforator
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_reality_perforator }
 		}
 		allow = {
@@ -653,8 +687,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_pox_sample.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_pox_sample }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_pox_sample
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_pox_sample }
 		}
 		allow = {
@@ -675,8 +711,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_cryo_core.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_cryo_core }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_cryo_core
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_cryo_core }
 		}
 		allow = {
@@ -697,8 +735,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_war_forge.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_war_forge }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_war_forge
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_war_forge }
 		}
 		allow = {
@@ -719,8 +759,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.z_fw_r_head_of_karyl.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = z_fw_r_head_of_karyl }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = z_fw_r_head_of_karyl
+			}	#_只侦测自己没有的
 			any_country = { has_relic = z_fw_r_head_of_karyl }
 		}
 		allow = {
@@ -743,8 +785,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_space_stone.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_space_stone }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_space_stone
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_space_stone }
 		}
 		allow = {
@@ -765,8 +809,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_power_stone.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_power_stone }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_power_stone
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_power_stone }
 		}
 		allow = {
@@ -787,8 +833,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_time_stone.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_time_stone }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_time_stone
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_time_stone }
 		}
 		allow = {
@@ -809,8 +857,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_reality_stone.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_reality_stone }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_reality_stone
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_reality_stone }
 		}
 		allow = {
@@ -831,8 +881,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_soul_stone.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_soul_stone }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_soul_stone
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_soul_stone }
 		}
 		allow = {
@@ -853,8 +905,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_mind_stone.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_mind_stone }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_mind_stone
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_mind_stone }
 		}
 		allow = {
@@ -875,8 +929,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_mjolnir.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_mjolnir }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_mjolnir
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_mjolnir }
 		}
 		allow = {
@@ -897,8 +953,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_infinity_gauntlet.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_infinity_gauntlet }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_infinity_gauntlet
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_infinity_gauntlet }
 		}
 		allow = {
@@ -921,8 +979,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_pspmod_sless_gene_template.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_pspmod_sless_gene_template }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_pspmod_sless_gene_template
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_pspmod_sless_gene_template }
 		}
 		allow = {
@@ -943,8 +1003,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_pspmod_diary_of_innovo.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_pspmod_diary_of_innovo }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_pspmod_diary_of_innovo
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_pspmod_diary_of_innovo }
 		}
 		allow = {
@@ -965,8 +1027,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_pspmod_astanine_last_projector.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_pspmod_astanine_last_projector }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_pspmod_astanine_last_projector
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_pspmod_astanine_last_projector }
 		}
 		allow = {
@@ -989,8 +1053,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_ASP_music_of_the_universe.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_ASP_music_of_the_universe }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_ASP_music_of_the_universe
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_ASP_music_of_the_universe }
 		}
 		allow = {
@@ -1011,8 +1077,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_aspmod_geocentric_device.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_aspmod_geocentric_device }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_aspmod_geocentric_device
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_aspmod_geocentric_device }
 		}
 		allow = {
@@ -1033,8 +1101,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_aspmod_communist_manifesto.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_aspmod_communist_manifesto }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_aspmod_communist_manifesto
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_aspmod_communist_manifesto }
 		}
 		allow = {
@@ -1055,8 +1125,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_aspmod_vermifugum.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_aspmod_vermifugum }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_aspmod_vermifugum
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_aspmod_vermifugum }
 		}
 		allow = {
@@ -1077,8 +1149,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_aspmod_protagonist_of_the_show.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_aspmod_protagonist_of_the_show }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_aspmod_protagonist_of_the_show
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_aspmod_protagonist_of_the_show }
 		}
 		allow = {
@@ -1099,8 +1173,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_aspmod_deadspace_marker.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_aspmod_deadspace_marker }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_aspmod_deadspace_marker
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_aspmod_deadspace_marker }
 		}
 		allow = {
@@ -1121,8 +1197,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_aspmod_synthetic_god_mummy.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_aspmod_synthetic_god_mummy }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_aspmod_synthetic_god_mummy
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_aspmod_synthetic_god_mummy }
 		}
 		allow = {
@@ -1143,8 +1221,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_aspmod_the_replicator.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_aspmod_the_replicator }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_aspmod_the_replicator
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_aspmod_the_replicator }
 		}
 		allow = {
@@ -1165,8 +1245,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_aspmod_the_last_tribute.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_aspmod_the_last_tribute }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_aspmod_the_last_tribute
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_aspmod_the_last_tribute }
 		}
 		allow = {
@@ -1187,8 +1269,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_aspmod_parasite_machine.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_aspmod_parasite_machine }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_aspmod_parasite_machine
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_aspmod_parasite_machine }
 		}
 		allow = {
@@ -1209,8 +1293,10 @@ country_event = {
 		custom_tooltip = z_lctr_menu.holder.r_aspmod_parasite_machine_2.tooltip
         custom_gui = "z_mm_button_evt_sub_green"
 		trigger = {
-			NOT = { has_country_flag = z_lctr_flg_cntr_holder_hide }
-			NOT = { has_relic = r_aspmod_parasite_machine_2 }	#_只侦测自己没有的
+			NOR = {
+				has_country_flag = z_lctr_flg_cntr_holder_hide
+				has_relic = r_aspmod_parasite_machine_2
+			}	#_只侦测自己没有的
 			any_country = { has_relic = r_aspmod_parasite_machine_2 }
 		}
 		allow = {

@@ -1134,10 +1134,8 @@ country_event = {
 		###_[上古势力]
 		if = {
 			limit = {
-				OR = {
-					is_country_type = fallen_empire
-					is_country_type = awakened_fallen_empire
-				}
+				
+					is_fallen_empire = yes
 			}
 			#_初始化
 			remove_modifier = z_fw_mod_core_dd_fp_fallen_1

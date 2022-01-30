@@ -69,7 +69,7 @@ country_event = {
 						clear_deposits = yes
 						set_planet_flag = z_lctr_flg_plnt_r
 						create_archaeological_site = z_lctr_site
-						every_country = {
+						every_playable_country = {
 							limit = { is_ai = no }
 							begin_event_chain = {
 								event_chain = z_lctr_chain_site
@@ -261,11 +261,11 @@ fleet_event = {
 				z_lctr_eft_cntr_story_chain_clean = yes		#_清理定位chain
 			}
 			#_其他国家	结束chain/挖掘通知
-			every_country = {
+			every_playable_country = {
 				limit = { has_event_chain = z_lctr_chain_site }
 				end_event_chain = z_lctr_chain_site
 				if = {
-					limit = { NOT = { is_same_value = root.owner } }
+					limit = { NOT = { is_same_empire = root.owner } }
 					country_event = { id = z_lctr_relic.252 }
 				}
 			}

@@ -917,7 +917,7 @@ country_event = {
 			if = {
 				limit = { has_global_flag = z_fw_flg_glbl_start_monument }
 				remove_global_flag = z_fw_flg_glbl_start_monument
-				every_country = {
+				every_playable_country = {
 					limit = {
 						is_ai = no
 						NOT = { has_relic = z_fw_r_monument }

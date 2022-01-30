@@ -46,7 +46,7 @@ event = {
 		z_fw_eft_glbl_core_periodic_check_yearly = yes
 		z_fw_eft_glbl_core_periodic_check_monthly = yes	#_[月度计时器]
 		##_[pc检测]
-		every_country = { limit = { is_ai = no }	set_country_flag = z_fw_flg_cntr_init_pc }
+		every_playable_country = { limit = { is_ai = no }	set_country_flag = z_fw_flg_cntr_init_pc }
 		
 		##_[人口上限_初始化_前置]	<如果安装了[后期优化]且没有[产业革命]则自动清除>
 		set_global_flag = z_fw_plnt_capacity_disabled
@@ -107,7 +107,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { NOT = { any_country = { has_country_flag = z_fw_flg_cntr_core_host } } }	#_|不存在host|
 	immediate = {
-		random_country = { limit = { is_ai = no }
+		random_playable_country = { limit = { is_ai = no }
 			set_country_flag = z_fw_flg_cntr_core_host
 			country_event = { id = z_modmenu.120 }
 		}
@@ -162,7 +162,7 @@ country_event = {
 			z_fw_eft_glbl_core_periodic_check_monthly = yes	#_[月度计时器]
 		}
 		##_[pc检测]
-		every_country = {
+		every_playable_country = {
 			limit = { is_ai = no }
 			set_country_flag = z_fw_flg_cntr_init_pc
 		}
@@ -263,8 +263,7 @@ country_event = {
 					is_ai = no
 					#_VANILLA
 					is_country_type = default
-					is_country_type = fallen_empire
-					is_country_type = awakened_fallen_empire
+					is_fallen_empire = yes
 					#_EV
 					is_country_type = default_ev
 					#_ZOFE
@@ -284,8 +283,7 @@ country_event = {
 					is_ai = no
 					#_VANILLA
 					is_country_type = default
-					is_country_type = fallen_empire
-					is_country_type = awakened_fallen_empire
+					is_fallen_empire = yes
 					#_EV
 					is_country_type = default_ev
 					#_ZOFE

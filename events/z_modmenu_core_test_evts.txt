@@ -168,8 +168,7 @@ country_event = {
 				closest_system = {
 					min_steps = 1
 					max_steps = 5
-					random_system_planet = {
-						limit = { is_star = yes }
+					star = {
 						save_event_target_as = z_mm_tgt_plnt_closest_system_star
 					}
 				}
@@ -241,7 +240,7 @@ country_event = {
 						orbit_distance = 0
 						owner = root
 						graphical_culture = root
-						location = prev
+						coords_from = prev
 					}
 				}
 			}
@@ -280,10 +279,8 @@ country_event = {
 		hidden_effect = {
 			random_country = {
 				limit = {
-					OR = {
-						is_country_type = fallen_empire
-						is_country_type = awakened_fallen_empire
-					}
+					
+						is_fallen_empire = yes
 				}
 				root = { copy_techs_from = { target = prev } }
 			}
@@ -850,7 +847,7 @@ country_event = {
 								orbit_distance = 45
 								owner = root
 								graphical_culture = root
-								location = prev
+								coords_from = prev
 							}
 							spawn_megastructure = {
 								name = "test_2"
@@ -859,7 +856,7 @@ country_event = {
 								orbit_distance = 45
 								owner = root
 								graphical_culture = root
-								location = prev
+								coords_from = prev
 							}
 							spawn_megastructure = {
 								name = "test_3"
@@ -868,7 +865,7 @@ country_event = {
 								orbit_distance = 45
 								owner = root
 								graphical_culture = root
-								location = prev
+								coords_from = prev
 							}
 							spawn_megastructure = {
 								name = "test_4"
@@ -877,7 +874,7 @@ country_event = {
 								orbit_distance = 45
 								owner = root
 								graphical_culture = root
-								location = prev
+								coords_from = prev
 							}
 						}
 					}
@@ -968,7 +965,7 @@ country_event = {
 					#_添加基础舰船设计
 					create_ship_design = { design = "NAME_z_fw_autostation_ship" }
 					add_ship_design = last_created_design
-					every_country = {
+					every_playable_country = {
 						limit = { is_ai = no }
 						establish_communications_no_message = prev
 						prev = { set_faction_hostility = { target = prev set_friendly = yes } }
@@ -1029,7 +1026,7 @@ country_event = {
 					#_添加基础舰船设计
 					create_ship_design = { design = "NAME_z_fw_autostation_ship" }
 					add_ship_design = last_created_design
-					every_country = {
+					every_playable_country = {
 						limit = { is_ai = no }
 						establish_communications_no_message = prev
 						prev = { set_faction_hostility = { target = prev set_friendly = yes } }
@@ -1090,7 +1087,7 @@ country_event = {
 					#_添加基础舰船设计
 					create_ship_design = { design = "NAME_z_fw_autostation_ship_moving" }
 					add_ship_design = last_created_design
-					every_country = {
+					every_playable_country = {
 						limit = { is_ai = no }
 						establish_communications_no_message = prev
 						prev = { set_faction_hostility = { target = prev set_friendly = yes } }
@@ -1831,7 +1828,7 @@ country_event = {
 	immediate = {
 		capital_scope = { save_event_target_as = z_mm_test_tgt_plnt_modifier_1 }
 		random_owned_planet = {
-			limit = { NOT = { is_capital = yes } }
+			limit = { is_capital = no }
 			save_event_target_as = z_mm_test_tgt_plnt_modifier_1
 		}
 	}

@@ -289,7 +289,7 @@ z_fw_eft_planet_annihilation = {
 					exists = owner
 					owner = { is_country_type = swarm }
 				}
-				every_country = {
+				every_playable_country = {
 					limit = { has_event_chain = "prethoryn_scourge_chain" }
 					add_event_chain_counter = {
 						event_chain = "prethoryn_scourge_chain"

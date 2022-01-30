@@ -57,9 +57,7 @@ z_fw_trgr_cntr_vl_faction_common = {
 		is_country_type = lost_empire		#_zofe
 		is_country_type = default_ev	#_ev
 		is_country_type = rebel
-		
-		is_country_type = fallen_empire
-		is_country_type = awakened_fallen_empire
+		is_fallen_empire = yes
 	}
 	NOR = {# 非v堕落
 		has_country_flag = fallen_empire_1		#_materialist
@@ -88,9 +86,7 @@ z_fw_trgr_cntr_vl_faction_ai = {
 		is_country_type = lost_empire
 		is_country_type = default_ev		#_ev
 		is_country_type = rebel
-		
-		is_country_type = fallen_empire
-		is_country_type = awakened_fallen_empire
+		is_fallen_empire = yes
 	}
 	NOR = {# 非v堕落
 		has_country_flag = fallen_empire_1		#_materialist

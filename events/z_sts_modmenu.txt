@@ -145,8 +145,7 @@ country_event = {
 					OR = {
 						is_country_type = default
 						is_country_type = default_ev
-						is_country_type = fallen_empire
-						is_country_type = awakened_fallen_empire
+						is_fallen_empire = yes
 						is_country_type = prikki
 						is_country_type = ascended_empire		#_ZOFE
 						is_country_type = lost_empire			#_ZOFE
@@ -157,10 +156,8 @@ country_event = {
 				}
 				if = {#_[堕落]
 					limit = {
-						OR = {
-							is_country_type = fallen_empire
-							is_country_type = awakened_fallen_empire
-						}
+						
+							is_fallen_empire = yes
 					}
 					root = { change_variable = { which = z_fallen_empire_var value = 1 } }
 				}
@@ -391,10 +388,8 @@ country_event = {
 				else_if = {
 					limit = {
 						owner = {
-							OR = {
-								is_country_type = fallen_empire
-								is_country_type = awakened_fallen_empire
-							}
+							
+								is_fallen_empire = yes
 						}
 					}
 					root = { change_variable = { which = z_fallen_fleets_var value = 1 } }

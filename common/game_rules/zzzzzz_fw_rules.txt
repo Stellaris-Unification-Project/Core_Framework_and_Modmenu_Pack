@@ -1,32 +1,32 @@
-###_++++ z fw 游戏规则	######################################################
+###_++++ z fw 戏	######################################################
 
 
 
 
-###_[全图视野]	z_fw/z_lctr/Teif/SOFE/涅槃	####################################
+###_[全图野]	z_fw/z_lctr/Teif/SOFE/	####################################
 # Check if full sensor range in entire galaxy
 # root: country
 has_full_sensor_range = {
 	NOR = {
-		has_country_flag = z_fw_misc_full_sensor_off	#_|z_fw|开关
-		has_country_flag = had_closed_spy_orb			# teif开关
+		has_country_flag = z_fw_misc_full_sensor_off	#_|z_fw|
+		has_country_flag = had_closed_spy_orb			# teif
 	}
 	OR = {
 		has_megastructure = spy_orb_4
 		has_megastructure = spy_orb_restored
 		has_megastructure = sofe_omega_spy_orb_center				# SOFE
-		has_country_flag = z_fw_r_celestial_orrey_activited			#_|z_fw|璀璨星图
-		has_country_flag = z_fw_r_cheat_quantum_beacon_activited	#_|z_fw|永恒星炬
-		has_country_flag = z_lctr_r_adv_sensor_activated_full		#_|z_lctr|暗能量传感器
-	#	AND = { is_ai = yes		has_country_flag = nirvana }		# 涅槃
-	#	has_country_flag = ai_dragon								# 涅槃
-	#	has_country_flag = ai_council								# 涅槃
+		has_country_flag = z_fw_r_celestial_orrey_activited			#_|z_fw|图
+		has_country_flag = z_fw_r_cheat_quantum_beacon_activited	#_|z_fw|蔷
+		has_country_flag = z_lctr_r_adv_sensor_activated_full		#_|z_lctr|
+	#	AND = { is_ai = yes		has_country_flag = nirvana }		# 
+	#	has_country_flag = ai_dragon								# 
+	#	has_country_flag = ai_council								# 
 	}
 }
 
 
-###_[z_fw/z_cm/Teif/ev/wsg/swg/失落帝国历史		/ZOFE/SOFE/hiveDLC/twinks]	####################################
-#_glbl_flg	[z_fw_flg_glbl_tech_overwhelm]	科技壁垒
+###_[z_fw/z_cm/Teif/ev/wsg/swg/失酃史		/ZOFE/SOFE/hiveDLC/twinks]	####################################
+#_glbl_flg	[z_fw_flg_glbl_tech_overwhelm]	萍
 # this = ship
 # root = country that kills ship
 can_spawn_debris = {
@@ -41,26 +41,24 @@ can_spawn_debris = {
 	}
 	exists = owner
 	owner = {
-		NAND = {#_科技限制
+		NAND = {#_萍
 			OR = {
-				has_global_flag = z_fw_flg_glbl_tech_overwhelm	#_|z_fw|科技壁垒
+				has_global_flag = z_fw_flg_glbl_tech_overwhelm	#_|z_fw|萍
 				has_global_flag = stability_MOD_installed		# Teif
 			}
-			relative_power = { who = root category = technology value >= superior }	#_[z_fw/Teif]神一般的科技=superior
+			relative_power = { who = root category = technology value >= superior }	#_[z_fw/Teif]一目萍=superior
 		}
-		NAND = {#_[z_cm]无法获取堕落科技
-			OR = {
-				is_country_type = fallen_empire
-				is_country_type = awakened_fallen_empire
-			}
+		NAND = {#_[z_cm]薹取萍
+			
+				is_fallen_empire = yes
 			has_global_flag = z_cm_fallen_technology
 		}
-		## +EV/失落帝国历史/swg/hiveDLC/twinks	/Teif/wsg/SOFE
-		NOR = {#_阵营限制
+		## +EV/失酃史/swg/hiveDLC/twinks	/Teif/wsg/SOFE
+		NOR = {#_营
 			has_ascension_perk = ap_enigmatic_engineering
 			
 			is_country_type = default_ev					# EV
-			is_country_type = LsE_fallen_empire				# 失落帝国历史
+			is_country_type = LsE_fallen_empire				# 失酃史
 			is_country_type = afk_crisis_country			# swg
 			has_civic = civic_hive_strong_connection		# hiveDLC
 			has_civic = civic_tw_atlantis					# twinks
@@ -80,8 +78,8 @@ can_spawn_debris = {
 }
 
 
-###_[传感阻碍]
-###_[Teif/z_fw/z_lctr/RS星云/Sexp		/wsg/古代帝国/ws/SMCO/S_tnatc]	####################################
+###_[璋璢
+###_[Teif/z_fw/z_lctr/RS/Sexp		/wsg/糯酃/ws/SMCO/S_tnatc]	####################################
 #_sys_trgr	ws_[is_ws_system]
 # this = system
 # root = country
@@ -94,12 +92,12 @@ system_blocks_sensors = {
 	}
 	## 
 	OR = {
-		## +RS星云/Sexp
+		## +RS/Sexp
 		AND = {
 			OR = {
 				has_modifier = space_storm
 				is_inside_nebula = yes
-				# RS星云
+				# RS
 				is_star_class = sc_collapsar
 				is_star_class = sc_p_purple
 				is_star_class = sc_p_green
@@ -122,7 +120,7 @@ system_blocks_sensors = {
 		# wsg
 		has_star_flag = wg_sealed_system
 		has_star_flag = wg_psionic_systems
-		# 古代帝国
+		# 糯酃
 		has_star_flag = ag_no_sensor_system
 		# ws
 		is_ws_system = yes
@@ -170,8 +168,8 @@ system_blocks_sensors = {
 }
 
 
-###_[跃迁限制]
-###_[z_fw/Teif/古代帝国/wsg/阿夸/SOFE/Giga/Ehof/seooc]	####################################
+###_[跃迁]
+###_[z_fw/Teif/糯酃/wsg//SOFE/Giga/Ehof/seooc]	####################################
 # Root = country attempting to target system for movement
 # This = system being targeted
 can_enter_system_by_jump = {
@@ -179,10 +177,10 @@ can_enter_system_by_jump = {
 		success_text = "debug: can jump"
 		fail_text = cannot_jump_to_system
 		OR = {
-			#_绝对通行
-			root = { has_country_flag = z_fw_r_celestial_orrey_activited }		#_|z_fw|璀璨星图
-			root = { has_country_flag = z_fw_r_cheat_quantum_beacon_activited }	#_|z_fw|永恒星炬
-			#_基础条件
+			#_通
+			root = { has_country_flag = z_fw_r_celestial_orrey_activited }		#_|z_fw|图
+			root = { has_country_flag = z_fw_r_cheat_quantum_beacon_activited }	#_|z_fw|蔷
+			#_
 			AND = {
 				# Teif
 				NOT = { root = { is_country_type = teif_primitive } }
@@ -205,15 +203,15 @@ can_enter_system_by_jump = {
 						has_star_flag = fallen_sol_system
 					}
 				}
-				##_特殊星系		+wsg/古代帝国/阿夸/SOFE/Giga/Ehof/seooc
+				##_系		+wsg/糯酃//SOFE/Giga/Ehof/seooc
 				NOR = {
 					has_star_flag = lcluster
 					# wsg
 					has_star_flag = wg_sealed_system
 					has_star_flag = wg_psionic_systems
-					# 古代帝国
+					# 糯酃
 					has_star_flag = ag_no_jump_in_system
-					# 阿夸
+					# 
 					has_star_flag = kuat_initial_system
 					has_star_flag = Kuat_system
 					has_star_flag = Kuat_system_1

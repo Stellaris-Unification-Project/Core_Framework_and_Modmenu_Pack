@@ -63,7 +63,7 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		random_country = {
+		random_playable_country = {
 			limit = {
 				is_ai = no
 				NOR = {
@@ -197,7 +197,7 @@ country_event = {
 					#_添加基础舰船设计
 					create_ship_design = { design = "NAME_z_fw_autostation_ship" }
 					add_ship_design = last_created_design
-					every_country = {
+					every_playable_country = {
 						limit = { is_ai = no }
 						establish_communications_no_message = prev
 						prev = { set_faction_hostility = { target = prev set_friendly = yes } }
@@ -266,7 +266,7 @@ country_event = {
 		###_[添加触发CD]	没有可建造矿站,检测频率降低到每4个月
 		else = { set_timed_country_flag = { flag = FW_SV_autostation_CD days = 110 } }
 		###_[其他PC循环]
-		random_country = {
+		random_playable_country = {
 			limit = {
 				is_ai = no
 				NOR = {
@@ -908,8 +908,7 @@ fleet_event = {
 					NOT = { exists = event_target:z_fw_tgt_sstm_r_cht_co }	#_[前置tgt检测]
 					any_system_planet = { is_star = yes }
 				}
-				random_system_planet = {
-					limit = { is_star = yes }
+				star = {
 					save_event_target_as = z_fw_tgt_plnt_r_cht_co	#_[内传递tgt_plnt]
 				}
 				save_event_target_as = z_fw_tgt_sstm_r_cht_co	#_[内传递tgt_sstm]
@@ -1114,8 +1113,7 @@ country_event = {
 					else_if = {
 						limit = { any_system_planet = { is_star = yes } }
 						set_timed_star_flag = { flag = z_fw_flg_sstm_star_exp_executing days = 35 }	#_[sstm_flag_添加]
-						random_system_planet = {
-							limit = { is_star = yes }
+						star = {
 							planet_event = { id = z_fw_misc_star_exp_green.10 random = 5 }	#_[star引爆_单体]
 						}
 					}
@@ -1157,8 +1155,7 @@ country_event = {
 								any_system_planet = { is_star = yes }
 							}
 							set_timed_star_flag = { flag = z_fw_flg_sstm_star_exp_executing days = 35 }	#_[sstm_flag_添加]
-							random_system_planet = {
-								limit = { is_star = yes }
+							star = {
 								planet_event = { id = z_fw_misc_star_exp_green.10 random = 5 }	#_[star引爆_单体]
 							}
 						}
@@ -1216,8 +1213,10 @@ country_event = {
 			every_playable_country = {
 				limit = {
 					is_ai = no
-					NOT = { has_communications = root }
-					NOT = { is_same_value = root }
+					NOR = {
+						has_communications = root
+						is_same_value = root
+					}
 				}
 				country_event = { id = z_fw1_misc.316 }
 			}
@@ -1235,8 +1234,10 @@ country_event = {
 			every_playable_country = {
 				limit = {
 					is_ai = no
-					NOT = { has_communications = root }
-					NOT = { is_same_value = root }
+					NOR = {
+						has_communications = root
+						is_same_value = root
+					}
 				}
 				country_event = { id = z_fw1_misc.316 }
 			}
@@ -1253,8 +1254,10 @@ country_event = {
 			every_playable_country = {
 				limit = {
 					is_ai = no
-					NOT = { has_communications = root }
-					NOT = { is_same_value = root }
+					NOR = {
+						has_communications = root
+						is_same_value = root
+					}
 				}
 				country_event = { id = z_fw1_misc.316 }
 			}
@@ -1437,7 +1440,7 @@ country_event = {
 					}
 				}
 			}
-			every_country = {
+			every_playable_country = {
 				limit = { is_ai = no }
 				country_event = { id = z_fw1_misc.325 days = 1 }
 			}
@@ -1511,7 +1514,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		random_system_within_border = {
-			limit = { any_system_planet = { is_capital = yes } }
+			limit = { is_capital_system = yes }
 			save_event_target_as = z_fw_tgt_sys_r_cht_hyper_1_temp
 			random_system = {
 				limit = { NOT = { is_same_value = prev } }
@@ -1639,7 +1642,7 @@ country_event = {
 				remove_star_flag = mega_shipyard_built
 			}
 			#_通知
-			every_country = {
+			every_playable_country = {
 				limit = { is_ai = no }
 			#	country_event = { id = z_fw1_misc.335 days = 1 }
 			}

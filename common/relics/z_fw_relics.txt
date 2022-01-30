@@ -256,10 +256,7 @@ z_fw_r_cheat_quantum_beacon = {
 				if = {
 					limit = {
 						root = {
-							OR = {
-								has_ethic = ethic_spiritualist
-								has_ethic = ethic_fanatic_spiritualist
-							}
+							is_spiritualist = yes
 						}
 						NOT = { has_communications = root }
 						is_country_type = shroud

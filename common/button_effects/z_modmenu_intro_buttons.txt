@@ -1,60 +1,60 @@
 ###_z modmenu intro	#####################################################################
-###_[button effects Ö»¶Á rootµÄ¶«Î÷]
+###_[button effects Ö» rootÄ¶]
 
-#_[Ö÷»ú»¶Ó­´°¿Ú/ÆäËû½çÃædebug]
-#_[ÆäËû»¶Ó­´°¿Ú]
-#_[¿ò¼ÜÄ£Ê½Ñ¡Ôñ/Ä£Ê½_modmenu/Ä£Ê½_framework/Ä£Ê½_ºÏ¼¯]
+#_[Ó­/debug]
+#_[Ó­]
+#_[Ä£Ê½Ñ¡/Ä£Ê½_modmenu/Ä£Ê½_framework/Ä£Ê½_Ï¼]
 
-#_[ÖØÒªflg]		z_mm_framework_mode_selected=Íê³ÉÄ£Ê½Ñ¡Ôñ
-
-
+#_[Òªflg]		z_mm_framework_mode_selected=Ä£Ê½Ñ¡
 
 
-###_[Ö÷»ú»¶Ó­´°¿Ú]	[z_modmenu.1200]	Ö±½Ó¿ªÊ¼/Ä£Ê½Ñ¡Ôñ
-#_Í¬²½[z_mm_button_intro_confirm-Ñ¡Ôñ¿ò¼Ü]
+
+
+###_[Ó­]	[z_modmenu.1200]	Ö±Ó¿Ê¼/Ä£Ê½Ñ¡
+#_Í¬[z_mm_button_intro_confirm-Ñ¡]
 z_mm_button_intro_welcome = {
-    potential = { is_scope_type = country }	#_µ±Ç°[¹ú¼Ò½çÃæ]
+    potential = { is_scope_type = country }	#_Ç°[Ò½]
 	effect = {
 		hidden_effect = {
-			##_[Ö±½Ó¿ªÊ¼]	init/Òþ²Ø·¨Áî/¿ò¼ÜÄ£Ê½³õÊ¼»¯/¿ª¾ÖÊÂ¼þ
+			##_[Ö±Ó¿Ê¼]	init/Ø·/Ä£Ê½Ê¼/Â¼
 			if = {
 				limit = { has_global_flag = linkage_support }
 				
 				#_[init]
-				remove_country_flag = z_mm_framework_mode_selected	#_ÇåÀíÄ£Ê½Ñ¡ÔñÍê³Éflg
-				set_global_flag = z_framework_activated				#_×Ô¶¯Ñ¡Ôñ¿ò¼ÜÄ£Ê½
+				remove_country_flag = z_mm_framework_mode_selected	#_Ä£Ê½Ñ¡flg
+				set_global_flag = z_framework_activated				#_Ô¶Ñ¡Ä£Ê½
 				
-				#_[Òþ²Ø·¨Áî]
-				every_country = { limit = { is_ai = no }	#_|½öÏÞÍæ¼Ò|
+				#_[Ø·]
+				every_playable_country = { limit = { is_ai = no }	#_||
 					set_country_flag = z_fw_flg_cntr_edt_hide
 				}
 				
-				#_[¿ò¼ÜÄ£Ê½³õÊ¼»¯]
+				#_[Ä£Ê½Ê¼]
 				z_fw_eft_glbl_framework_mode_flg_init = yes
 				z_fw_eft_glbl_RTS_flg_init = yes
 
-				#_[¿ª¾ÖÊÂ¼þ]
+				#_[Â¼]
 				z_mm_lock_leftbar = yes
 				country_event = { id = z_modmenu.1 }
 				z_mm_lock_setting_panel = yes
-				country_event = { id = z_fw_misc_start.100 }	#_¿ª¾ÖÖ¸ÄÏ
+				country_event = { id = z_fw_misc_start.100 }	#_Ö¸
 			}
-			##_[Ä£Ê½Ñ¡Ôñ]
+			##_[Ä£Ê½Ñ¡]
 			else = { country_event = { id = z_modmenu.120 } }
 		}
 		custom_tooltip = z_mm_tip_intro_welcome
 	}
 }
-##_[ÆäËû½çÃædebug]
+##_[debug]
 z_mm_button_intro_welcome_debug = {
-    potential = { NOT = { is_scope_type = country } }	#_µ±Ç°[ÆäËû½çÃæ]
+    potential = { NOT = { is_scope_type = country } }	#_Ç°[]
 	effect = {
 		custom_tooltip = z_mm_tip_intro_welcome_debug
 	}
 }
 
 
-###_[ÆäËû»¶Ó­´°¿Ú]
+###_[Ó­]
 z_mm_button_intro_confirm_none = {
     potential = { always = yes }
 	effect = {
@@ -63,7 +63,7 @@ z_mm_button_intro_confirm_none = {
 				limit = { is_scope_type = country }
 				remove_country_flag = z_mm_framework_mode_selected
 			}
-			else = { owner = { remove_country_flag = z_mm_framework_mode_selected } }	#_[¿ªÆô·Ç¹ú¼Ò½çÃæ]
+			else = { owner = { remove_country_flag = z_mm_framework_mode_selected } }	#_[Ç¹Ò½]
 		}
 		custom_tooltip = z_mm_tip_intro_confirm
 	}
@@ -72,35 +72,35 @@ z_mm_button_intro_confirm_none = {
 
 
 
-###_[¿ò¼ÜÄ£Ê½Ñ¡Ôñ]
-#_[Íê³ÉÑ¡Ôñ]=¿ª¾Öflg³õÊ¼»¯	init/¿ò¼ÜÄ£Ê½/²Ëµ¥Ä£Ê½
+###_[Ä£Ê½Ñ¡]
+#_[Ñ¡]=flgÊ¼	init/Ä£Ê½/ËµÄ£Ê½
 z_mm_button_intro_confirm = {
     potential = { has_country_flag = z_mm_framework_mode_selected }
 	effect = {
 		hidden_effect = {
 			##_[init]
-			remove_country_flag = z_mm_framework_mode_selected		#_ÇåÀíÄ£Ê½Ñ¡ÔñÍê³Éflg
+			remove_country_flag = z_mm_framework_mode_selected		#_Ä£Ê½Ñ¡flg
 			
-			##_[¿ò¼ÜÄ£Ê½]	³õÊ¼»¯/¿ª¾ÖÊÂ¼þ
+			##_[Ä£Ê½]	Ê¼/Â¼
 			if = {
 				limit = { has_global_flag = z_framework_activated }
 				
-				#_[³õÊ¼»¯]
-				z_fw_eft_glbl_framework_mode_flg_init = yes		#_[¿ò¼ÜÄ£Ê½³õÊ¼»¯]
-				z_fw_eft_glbl_RTS_flg_init = yes		#_[rts³õÊ¼»¯]
+				#_[Ê¼]
+				z_fw_eft_glbl_framework_mode_flg_init = yes		#_[Ä£Ê½Ê¼]
+				z_fw_eft_glbl_RTS_flg_init = yes		#_[rtsÊ¼]
 
-				#_[¿ª¾ÖÊÂ¼þ]
+				#_[Â¼]
 				z_mm_lock_leftbar = yes
 				country_event = { id = z_modmenu.1 }
 				z_mm_lock_setting_panel = yes
-				country_event = { id = z_fw_misc_start.100 }	#_¿ª¾ÖÖ¸ÄÏ
+				country_event = { id = z_fw_misc_start.100 }	#_Ö¸
 			}
 			
-			##_[²Ëµ¥Ä£Ê½]
+			##_[ËµÄ£Ê½]
 			else = {
-				#_[³õÊ¼»¯]
-				z_fw_eft_glbl_modmenu_mode_flg_init = yes		#_[²Ëµ¥Ä£Ê½³õÊ¼»¯]
-				z_fw_eft_glbl_RTS_flg_init = yes		#_[rts³õÊ¼»¯]
+				#_[Ê¼]
+				z_fw_eft_glbl_modmenu_mode_flg_init = yes		#_[ËµÄ£Ê½Ê¼]
+				z_fw_eft_glbl_RTS_flg_init = yes		#_[rtsÊ¼]
 			}
 		}
 		custom_tooltip = z_mm_tip_intro_confirm
@@ -119,7 +119,7 @@ z_mm_button_intro_menu_mode_on = {
 	potential = {
 		has_country_flag = z_mm_framework_mode_selected
 		NOR = {
-			has_global_flag = linkage_support	#_ÎÞ¾¡ÕûºÏ
+			has_global_flag = linkage_support	#_Þ¾
 			has_global_flag = z_framework_activated
 		}
 	}
@@ -138,7 +138,7 @@ z_mm_button_intro_menu_mode_off = {
 			}
 			NOT = { has_country_flag = z_mm_framework_mode_selected }
 		}
-		NOT = { has_global_flag = linkage_support }	#_ÎÞ¾¡ÕûºÏ
+		NOT = { has_global_flag = linkage_support }	#_Þ¾
 	}
 	allow = { always = yes }
 	effect = {
@@ -156,7 +156,7 @@ z_mm_button_intro_fw_mode_on = {
 	potential = {
 		has_country_flag = z_mm_framework_mode_selected
 		has_global_flag = z_framework_activated
-		NOT = { has_global_flag = linkage_support }	#_ÎÞ¾¡ÕûºÏ
+		NOT = { has_global_flag = linkage_support }	#_Þ¾
 	}
 	allow = { always = yes }
 	effect = {
@@ -173,7 +173,7 @@ z_mm_button_intro_fw_mode_off = {
 			}
 			NOT = { has_country_flag = z_mm_framework_mode_selected }
 		}
-		NOT = { has_global_flag = linkage_support }	#_ÎÞ¾¡ÕûºÏ
+		NOT = { has_global_flag = linkage_support }	#_Þ¾
 	}
 	allow = { always = yes }
 	effect = {
@@ -186,15 +186,15 @@ z_mm_button_intro_fw_mode_off = {
 }
 
 
-##_[Ä£Ê½_ºÏ¼¯]	Ö»ÄÜÑ¡Ôñframework	z½ûÓÃ
+##_[Ä£Ê½_Ï¼]	Ö»Ñ¡framework	z
 z_mm_button_intro_fw_mode_ic = {
-	potential = { has_global_flag = linkage_support }	#_ÎÞ¾¡ÕûºÏ
+	potential = { has_global_flag = linkage_support }	#_Þ¾
 	allow = { always = yes }
 	effect = {
 		hidden_effect = {
 			set_country_flag = z_mm_framework_mode_selected
 			set_global_flag = z_framework_activated
-			every_country = {#_Òþ²Ø¶îÍâ·¨Áî
+			every_country = {#_Ø¶â·¨
 				limit = { is_ai = no }
 				set_country_flag = z_fw_flg_cntr_edt_hide
 			}

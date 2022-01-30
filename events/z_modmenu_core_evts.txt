@@ -71,7 +71,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		every_country = {
+		every_playable_country = {
 			limit = { is_ai = no }
 			if = {
 				limit = { z_fw_trgr_cntr_core_mp_host = yes }	#_[z_fw_core.100]设定
@@ -99,7 +99,7 @@ country_event = {
 			}
 			#_安装
 			set_global_flag = z_modmenu_installed
-			random_country = {
+			random_playable_country = {
 				limit = { is_ai = no }
 				country_event = { id = z_modmenu.120  days = 1 }
 			}
@@ -1067,7 +1067,7 @@ country_event = {
 				remove_country_flag = z_fw_last_cheater
 			}
 			#_全局广播
-			every_country = {
+			every_playable_country = {
 				limit = {
 					is_ai = no
 					NOT = { is_country = root }
@@ -1326,7 +1326,7 @@ country_event = {
 		custom_tooltip = z_modmenu.battle_vl_tips
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			NOR = {
 				has_global_flag = z_fw_flg_glbl_battle_vl_0
 				has_global_flag = z_fw_flg_glbl_battle_vl_1
@@ -1350,7 +1350,7 @@ country_event = {
 		custom_tooltip = z_modmenu.battle_vl_tips
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = z_fw_flg_glbl_battle_vl_0
 		}
 		allow = {
@@ -1371,7 +1371,7 @@ country_event = {
 		custom_tooltip = z_modmenu.battle_vl_tips
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = z_fw_flg_glbl_battle_vl_1
 		}
 		allow = {
@@ -1391,7 +1391,7 @@ country_event = {
 		custom_tooltip = z_modmenu.battle_vl_tips
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = z_fw_flg_glbl_battle_vl_2
 		}
 		allow = {
@@ -1421,7 +1421,7 @@ country_event = {
 		custom_tooltip = z_modmenu.133.vl_full_setting
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes } }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no }	#_[属性优化]
 		allow = {
 		#	custom_tooltip = {#_|完全|
 		#		hidden_trigger = { has_global_flag = z_fw_flg_glbl_battle_vl_2 }
@@ -1446,7 +1446,7 @@ country_event = {
 		custom_tooltip = z_modmenu.133.vl_attrib_uniformation
         custom_gui = "z_mm_button_evt_sub_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = vl_flg_glbl_complex	#_复杂曲线
 			exists = event_target:z_fw_tgt_global_event
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
@@ -1478,7 +1478,7 @@ country_event = {
 		custom_tooltip = z_modmenu.133.vl_attrib_uniformation
         custom_gui = "z_mm_button_evt_sub_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = vl_flg_glbl_complex	#_复杂曲线
 			exists = event_target:z_fw_tgt_global_event
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
@@ -1509,7 +1509,7 @@ country_event = {
 		custom_tooltip = z_modmenu.133.vl_attrib_uniformation
         custom_gui = "z_mm_button_evt_sub_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = vl_flg_glbl_complex	#_复杂曲线
 			exists = event_target:z_fw_tgt_global_event
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
@@ -1540,7 +1540,7 @@ country_event = {
 		custom_tooltip = z_modmenu.133.vl_attrib_uniformation
         custom_gui = "z_mm_button_evt_sub_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = vl_flg_glbl_complex	#_复杂曲线
 			exists = event_target:z_fw_tgt_global_event
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
@@ -1591,7 +1591,7 @@ country_event = {
 		custom_tooltip = z_modmenu.133.vl_attrib_switch
         custom_gui = "z_mm_button_evt_sub_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = vl_flg_glbl_complex	#_复杂曲线
 			exists = event_target:z_fw_tgt_global_event
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
@@ -1624,7 +1624,7 @@ country_event = {
 		custom_tooltip = z_modmenu.133.vl_full_config
         custom_gui = "z_mm_button_evt_sub_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = vl_flg_glbl_complex	#_复杂曲线
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
 		}
@@ -1660,7 +1660,7 @@ country_event = {
 		name = z_modmenu.133.vl_full_config_add_100
 		custom_tooltip = z_modmenu.133.vl_full_config
         custom_gui = "z_mm_button_evt_sub_green"
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = vl_flg_glbl_complex	#_复杂曲线
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
 		}
@@ -1696,7 +1696,7 @@ country_event = {
 		custom_tooltip = z_modmenu.133.vl_full_config
         custom_gui = "z_mm_button_evt_sub_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = vl_flg_glbl_complex	#_复杂曲线
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
 		}
@@ -1733,7 +1733,7 @@ country_event = {
 		custom_tooltip = z_modmenu.133.vl_full_config
         custom_gui = "z_mm_button_evt_sub_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			has_global_flag = vl_flg_glbl_complex	#_复杂曲线
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
 		}
@@ -1772,7 +1772,7 @@ country_event = {
 		custom_tooltip = z_modmenu.vl_simp_uniformation
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			NOT = { has_global_flag = vl_flg_glbl_complex }	#_复杂曲线
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
 			exists = event_target:z_fw_tgt_global_event
@@ -1802,7 +1802,7 @@ country_event = {
 		custom_tooltip = z_modmenu.vl_simp_uniformation
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			NOT = { has_global_flag = vl_flg_glbl_complex }	#_复杂曲线
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
 			exists = event_target:z_fw_tgt_global_event
@@ -1881,7 +1881,7 @@ country_event = {
 		name = z_modmenu.vl_set_simp_add_1
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			NOT = { has_global_flag = vl_flg_glbl_complex }	#_复杂曲线
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
 			exists = event_target:z_fw_tgt_global_event
@@ -1924,7 +1924,7 @@ country_event = {
 		name = z_modmenu.vl_set_simp_add_10
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			NOT = { has_global_flag = vl_flg_glbl_complex }	#_复杂曲线
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
 			exists = event_target:z_fw_tgt_global_event
@@ -1967,7 +1967,7 @@ country_event = {
 		name = z_modmenu.vl_set_simp_minus_1
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			NOT = { has_global_flag = vl_flg_glbl_complex }	#_复杂曲线
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
 			exists = event_target:z_fw_tgt_global_event
@@ -2010,7 +2010,7 @@ country_event = {
 		name = z_modmenu.vl_set_simp_minus_10
         custom_gui = "z_mm_button_evt_option_green"
 		
-		trigger = { NOT = { z_rts_trgr_glbl_activated = yes }	#_[属性优化]
+		trigger = { z_rts_trgr_glbl_activated = no	#_[属性优化]
 			NOT = { has_global_flag = vl_flg_glbl_complex }	#_复杂曲线
 			has_country_flag = z_fw_set_dd_vl_full_show_setting
 			exists = event_target:z_fw_tgt_global_event
